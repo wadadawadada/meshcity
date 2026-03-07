@@ -1,0 +1,54 @@
+{
+  "players": [
+    {
+      "nodeId": "!7d08653c",
+      "shortName": "ararato",
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-07T13:45:49.961Z",
+      "updatedAt": "2026-03-07T14:40:38.625Z",
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 930
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 33:58",
+        "position": {
+          "x": 33,
+          "y": 58
+        },
+        "resources": {
+          "wood": 8,
+          "stone": 6,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 4
+        },
+        "claimedCells": [
+          "68,3"
+        ],
+        "buildings": {
+          "68,3": [
+            "mine"
+          ]
+        },
+        "cityLevel": 1,
+        "cityCore": "68,3",
+        "cityName": "fortess",
+        "districtName": "fortess",
+        "chatBubble": "",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-07T14:40:38.625Z",
+        "startedAt": "2026-03-07T13:46:21.971Z",
+        "migratedToMeshcity": true
+      },
+      "avatar": "🧑‍🦳"
+    }
+  ]
+}

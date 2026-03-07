@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MESHCITY Dashboard</title>
+    <link rel="icon" type="image/png" href="/ico.png">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="screen">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">MESHCITY</span>
+        </div>
+        <nav class="topbar-nav" aria-label="Quick links">
+          <button id="help-open-btn" class="topbar-link" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18m0 2.2c1.1 0 2.1 1.5 2.6 3.7H9.4C9.9 6.7 10.9 5.2 12 5.2m-3 4.9h6c.1.6.2 1.2.2 1.9c0 .6-.1 1.3-.2 1.9H9c-.1-.6-.2-1.3-.2-1.9c0-.7.1-1.3.2-1.9m-3.7 1.9c0-.7.1-1.3.3-1.9h2.2c-.1.6-.2 1.2-.2 1.9c0 .6.1 1.3.2 1.9H5.6a7 7 0 0 1-.3-1.9m1.1 4.1h2.1c.3 1.2.8 2.2 1.4 3A7.1 7.1 0 0 1 6.4 16m3.5 0h4.2c-.5 1.8-1.4 3-2.1 3s-1.6-1.2-2.1-3m5.5 3c.6-.8 1.1-1.8 1.4-3h2.1a7.1 7.1 0 0 1-3.5 3m4-4.9h-2.2c.1-.6.2-1.3.2-1.9c0-.7-.1-1.3-.2-1.9h2.2c.2.6.3 1.2.3 1.9c0 .6-.1 1.3-.3 1.9m-1-4.1h-2.1c-.3-1.2-.8-2.2-1.4-3A7.1 7.1 0 0 1 18.4 10m-9.3-3c-.6.8-1.1 1.8-1.4 3H5.6a7.1 7.1 0 0 1 3.5-3"/>
+            </svg>
+            <span>Help</span>
+          </button>
+          <a class="topbar-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2c-.5-1.1-1.1-1.4-1.1-1.4c-.9-.6.1-.6.1-.6c1 .1 1.6 1 1.6 1c.9 1.5 2.3 1.1 2.9.8c.1-.7.4-1.1.6-1.4c-2.2-.2-4.5-1.1-4.5-4.9c0-1.1.4-2.1 1-2.8c-.1-.2-.4-1.3.1-2.7c0 0 .8-.3 2.8 1.1a9.5 9.5 0 0 1 5 0c1.9-1.4 2.8-1.1 2.8-1.1c.5 1.4.2 2.5.1 2.7c.6.8 1 1.7 1 2.8c0 3.8-2.3 4.7-4.5 4.9c.4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10 10 0 0 0 12 2"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+        </nav>
+        <div id="device-status" class="status-badge">OFFLINE</div>
+      </header>
+
+      <section class="workspace">
+        <section class="column column-left">
+          <article class="window device-window">
+            <div class="window-head">
+              <span>DEVICE</span>
+            </div>
+            <div class="window-body control-body">
+              <label class="field">
+                <span>COM PORT</span>
+                <select id="port"></select>
+              </label>
+              <div class="button-row">
+                <button id="refresh-ports-btn" class="ghost" type="button">SCAN PORTS</button>
+                <button id="connect-btn" type="button">CONNECT</button>
+                <button id="disconnect-btn" class="ghost" type="button">DISCONNECT</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="window split-window">
+            <div class="window-head">
+              <span>PLAYERS</span>
+              <div class="window-actions">
+                <span class="window-code">count: <strong id="player-count">0</strong></span>
+                <button id="export-players-btn" class="head-btn" type="button">EXPORT</button>
+              </div>
+            </div>
+            <div class="window-body scroll-body">
+              <div id="players" class="records empty">NO PLAYERS</div>
+            </div>
+          </article>
+
+          <article class="window split-window">
+            <div class="window-head">
+              <span>LOG STREAM</span>
+              <div class="window-actions">
+                <span class="window-code">count: <strong id="log-count">0</strong></span>
+                <button id="clear-logs-btn" class="head-btn ghost" type="button">CLEAR</button>
+              </div>
+            </div>
+            <div class="window-body scroll-body">
+              <div id="logs" class="records empty">NO LOGS</div>
+            </div>
+          </article>
+        </section>
+
+        <section class="column column-right">
+          <article class="window admin-window">
+            <div class="window-head">
+              <span class="map-head-title">ADMIN WORLD MAP</span>
+            </div>
+            <div class="window-body admin-map-body">
+              <div class="map-toolbar compact-toolbar">
+                <div class="editor-group" data-editor-scope="common">
+                  <span class="editor-label">MODE</span>
+                  <select id="map-mode" title="Mode">
+                    <option value="view">INSPECT</option>
+                    <option value="terrain">PAINT TERRAIN</option>
+                    <option value="entity">PLACE ASSET</option>
+                    <option value="player">MOVE PLAYER</option>
+                    <option value="tools">MAP TOOLS</option>
+                  </select>
+                </div>
+                <div class="editor-group" data-editor-scope="terrain">
+                  <span class="editor-label">TERRAIN</span>
+                  <div class="editor-inline">
+                    <select id="terrain-type" title="Terrain">
+                      <option value="plain">PLAIN</option>
+                      <option value="sand">SAND</option>
+                      <option value="forest">FOREST</option>
+                      <option value="water">WATER</option>
+                      <option value="mountain">MOUNTAIN</option>
+                      <option value="town">TOWN</option>
+                      <option value="road">ROAD</option>
+                    </select>
+                    <label class="compact-check terrain-blocked" title="Blocked tile">
+                      <input id="tile-blocked" type="checkbox">
+                      <span>BLOCKED</span>
+                    </label>
+                    <label class="compact-check terrain-draw" title="Draw while holding mouse button">
+                      <input id="terrain-drag-paint" type="checkbox">
+                      <span>DRAW</span>
+                    </label>
+                    <button id="terrain-undo-btn" class="ghost compact-btn icon-btn" type="button" title="Undo terrain paint" aria-label="Undo terrain paint">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 7H4v5" />
+                        <path d="M20 17a8 8 0 0 0-8-8H4" />
+                      </svg>
+                    </button>
+                    <button id="terrain-redo-btn" class="ghost compact-btn icon-btn" type="button" title="Redo terrain paint" aria-label="Redo terrain paint">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 7h5v5" />
+                        <path d="M4 17a8 8 0 0 1 8-8h8" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="editor-group editor-group-tools" data-editor-scope="entity">
+                  <span class="editor-label">ASSET</span>
+                  <div class="editor-inline">
+                    <select id="entity-type" title="Asset type">
+                      <option value="loot">LOOT</option>
+                      <option value="npc">NPC</option>
+                      <option value="event">EVENT</option>
+                      <option value="landmark">LANDMARK</option>
+                      <option value="project">PROJECT</option>
+                    </select>
+                    <input id="entity-name" type="text" value="Workshop" maxlength="40" title="Asset name">
+                  </div>
+                </div>
+                <div class="editor-group" data-editor-scope="player">
+                  <span class="editor-label">PLAYER</span>
+                  <select id="player-picker" title="Player"></select>
+                </div>
+                <div class="editor-group" data-editor-scope="tools">
+                  <span class="editor-label">MAP TOOLS</span>
+                  <div class="editor-inline compact-size" title="Map size">
+                    <input id="map-name" type="text" maxlength="40" placeholder="Map name">
+                    <button id="save-map-name-btn" class="ghost compact-btn icon-btn" type="button" title="Save map name" aria-label="Save map name">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 4h11l3 3v13H5z" />
+                        <path d="M8 4v6h8V4" />
+                        <path d="M9 19h6" />
+                      </svg>
+                    </button>
+                    <input id="map-width" type="number" min="10" max="120" step="1">
+                    <span>x</span>
+                    <input id="map-height" type="number" min="10" max="120" step="1">
+                    <button id="resize-map-btn" class="ghost compact-btn icon-btn" type="button" title="Resize map" aria-label="Resize map">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 9V4h5" />
+                        <path d="M20 15v5h-5" />
+                        <path d="M9 4 4 9" />
+                        <path d="m15 20 5-5" />
+                        <path d="M20 9V4h-5" />
+                        <path d="M4 15v5h5" />
+                        <path d="m15 4 5 5" />
+                        <path d="m4 15 5 5" />
+                      </svg>
+                    </button>
+                    <button id="generate-map-btn" class="ghost compact-btn icon-btn" type="button" title="Autogenerate map" aria-label="Autogenerate map">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m3 17 6-6 4 4 7-7" />
+                        <path d="M14 8h6v6" />
+                      </svg>
+                    </button>
+                    <button id="clear-map-btn" class="ghost compact-btn icon-btn" type="button" title="Clear map" aria-label="Clear map">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 6h18" />
+                        <path d="M8 6V4h8v2" />
+                        <path d="m6 6 1 14h10l1-14" />
+                      </svg>
+                    </button>
+                    <button id="export-map-btn" class="ghost compact-btn icon-btn" type="button" title="Export map" aria-label="Export map">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3v12" />
+                        <path d="m7 10 5 5 5-5" />
+                        <path d="M5 21h14" />
+                      </svg>
+                    </button>
+                    <button id="import-map-btn" class="ghost compact-btn icon-btn" type="button" title="Import map" aria-label="Import map">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 21V9" />
+                        <path d="m7 14 5-5 5 5" />
+                        <path d="M5 3h14" />
+                      </svg>
+                    </button>
+                    <input id="import-map-input" type="file" accept="application/json" hidden>
+                  </div>
+                </div>
+              </div>
+              <div id="map-editor-hint" class="map-editor-hint">MODE: INSPECT. Click a cell to view details.</div>
+              <div class="world-map-shell">
+                <div id="map-name-badge" class="map-name-badge">Untitled Map</div>
+                <div class="map-zoom-controls" aria-label="Map zoom controls">
+                  <button id="zoom-in-btn" class="ghost map-zoom-btn" type="button" aria-label="Zoom in">+</button>
+                  <button id="zoom-out-btn" class="ghost map-zoom-btn" type="button" aria-label="Zoom out">-</button>
+                </div>
+                <div class="world-map-wrap" id="world-map-wrap">
+                  <canvas id="world-canvas" class="world-canvas"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+    <div id="cell-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="cell-modal-title">
+      <div class="modal-card cell-modal-card">
+        <div class="modal-head">
+          <strong id="cell-modal-title">CELL</strong>
+          <button id="cell-modal-close" class="ghost modal-close-btn" type="button" aria-label="Close modal">&times;</button>
+        </div>
+        <div id="cell-modal-body" class="modal-body"></div>
+      </div>
+    </div>
+    <div id="player-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="player-modal-title">
+      <div class="modal-card player-modal-card">
+        <div class="modal-head">
+          <strong id="player-modal-title">PLAYER</strong>
+          <button id="player-modal-close" class="ghost modal-close-btn" type="button" aria-label="Close modal">&times;</button>
+        </div>
+        <div id="player-modal-body" class="modal-body"></div>
+      </div>
+    </div>
+    <div id="help-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+      <div class="modal-card help-modal-card">
+        <div class="modal-head">
+          <strong id="help-modal-title">COMMAND HELP</strong>
+          <button id="help-modal-close" class="ghost modal-close-btn" type="button" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body help-modal-body">
+          <section class="help-section">
+            <h4>Core</h4>
+            <p><code>START</code> - start player session</p>
+            <p><code>NAME &lt;district&gt;</code> - name your district after the first claim</p>
+            <p><code>STATUS</code> - player and district summary</p>
+            <p><code>RESOURCES</code> - resource stock</p>
+            <p><code>PAUSE</code> - pause session</p>
+            <p><code>CONTINUE</code> - resume session</p>
+          </section>
+          <section class="help-section">
+            <h4>Expansion</h4>
+            <p><code>MOVE &lt;n|s|e|w&gt;</code> - move on map</p>
+            <p><code>SCAN</code> - inspect nearby tiles</p>
+            <p><code>TILE [x y]</code> - owner/building/landmark info</p>
+            <p><code>LAND</code> - territory summary and next cost</p>
+            <p><code>CLAIM &lt;x&gt; &lt;y&gt;</code> - claim adjacent land, but not water, sand or road</p>
+          </section>
+          <section class="help-section">
+            <h4>Economy</h4>
+            <p><code>HARVEST [x y]</code> - collect district income from a tile</p>
+            <p><code>BUILD &lt;home|farm|mill|mine|shop|hall&gt; &lt;x&gt; &lt;y&gt;</code> - place building on claimed non-water, non-sand, non-road tiles</p>
+          </section>
+          <section class="help-section">
+            <h4>Market</h4>
+            <p><code>TRADE LIST</code> - show offers</p>
+            <p><code>TRADE SELL &lt;resource&gt; &lt;qty&gt; &lt;unitPrice&gt;</code></p>
+            <p><code>TRADE BUY &lt;offerId&gt; &lt;qty&gt;</code></p>
+            <p><code>TRADE CANCEL &lt;offerId&gt;</code></p>
+          </section>
+          <section class="help-section">
+            <h4>Social</h4>
+            <p><code>CHAT &lt;message&gt;</code> - speech bubble above player</p>
+            <p><code>CHAT CLEAR</code> - remove bubble</p>
+          </section>
+          <section class="help-section">
+            <h4>Help Categories (Radio)</h4>
+            <p><code>HELP</code> then send one category: <code>CORE</code>, <code>EXPANSION</code>, <code>ECONOMY</code>, <code>MARKET</code>, <code>SOCIAL</code>, <code>SYSTEM</code></p>
+            <p>Map and instructions: <a href="https://meshcity.fun" target="_blank" rel="noopener noreferrer">https://meshcity.fun</a></p>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+  </html>

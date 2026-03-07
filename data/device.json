@@ -1,0 +1,10 @@
+{
+  "status": "connected",
+  "transport": "serial",
+  "deviceName": "Heltec V3",
+  "connectedAt": "2026-03-07T14:40:17.508Z",
+  "lastMessageAt": "2026-03-07T14:40:38.664Z",
+  "localNodeId": "!9ee7023c",
+  "localNodeNum": 2665939516,
+  "port": "COM5"
+}
