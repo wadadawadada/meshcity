@@ -30,3 +30,4 @@ Thumbs.db
 # Project-specific
 meshcity_admin_server/backup/
 meshcity_admin_server/scripts/__pycache__/
+backup/
