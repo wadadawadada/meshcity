@@ -1,0 +1,32 @@
+# Dependencies
+**/node_modules/
+
+# Logs
+*.log
+*.err.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime / temp
+*.pid
+*.seed
+tmp/
+temp/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build / cache
+**/.cache/
+**/dist/
+**/build/
+**/coverage/
+
+# Project-specific
+meshcity_admin_server/backup/
+meshcity_admin_server/scripts/__pycache__/
