@@ -527,6 +527,30 @@
       "timestamp": "2026-03-08T08:24:34.492Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772963387773_463617",
+      "timestamp": "2026-03-08T09:49:47.773Z",
+      "scope": "device",
+      "message": "Recovered from stale startup state: set to disconnected"
+    },
+    {
+      "id": "log_1772963387796_25fed3",
+      "timestamp": "2026-03-08T09:49:47.796Z",
+      "scope": "system",
+      "message": "MESHCITY dashboard started on http://localhost:3000"
+    },
+    {
+      "id": "log_1772963390825_3496d6",
+      "timestamp": "2026-03-08T09:49:50.825Z",
+      "scope": "device",
+      "message": "Opening serial connection COM5"
+    },
+    {
+      "id": "log_1772963393850_b59dcd",
+      "timestamp": "2026-03-08T09:49:53.850Z",
+      "scope": "device",
+      "message": "Serial connection established on COM5"
     }
   ]
 }

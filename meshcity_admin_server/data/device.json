@@ -2,7 +2,7 @@
   "status": "connected",
   "transport": "serial",
   "deviceName": "Heltec V3",
-  "connectedAt": "2026-03-08T08:24:04.366Z",
+  "connectedAt": "2026-03-08T09:49:53.836Z",
   "lastMessageAt": "2026-03-08T08:24:33.425Z",
   "localNodeId": "!9ee7023c",
   "localNodeNum": 2665939516,
