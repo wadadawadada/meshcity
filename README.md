@@ -2,217 +2,95 @@
 
 Official site: https://meshcity.fun
 
-MESHCITY is a Meshtastic-powered persistent strategy/survival game.
-Players interact with the game by sending direct messages over mesh radio, while game masters run a local admin server to control operations and monitor the world.
+MESHCITY is a Meshtastic-powered persistent **TEXT-FIRST** strategy/survival game.
+Core gameplay works inside your local Meshtastic mesh network and can run **without internet access**.
+For convenience, a separate public web stack is also provided (backend + frontend website) for broadcast/observation.
 
-This repository currently contains:
-- the **main admin server** (root project)
-- a **public read-only backend** (`meshcity_backend`)
-- a **public broadcast frontend** (`meshcity_frontend`)
+## Repository Layout
 
-## Project Structure
+This workspace now has three separate applications:
 
-- `server.js` (root): main admin server entrypoint (game master machine)
-- `src/`: core game logic, Meshtastic integration, API handlers, storage
-- `public/`: admin dashboard frontend
-- `data/`: runtime data (`world.json`, `players.json`, `logs.json`, `device.json`)
-- `meshcity_backend/`: read-only broadcast API + SSE stream for public map
-- `meshcity_frontend/`: public user-facing realtime map UI
-- `scripts/start-public-stack.ps1`: starts public backend+frontend in separate terminals
-- `scripts/stop-public-stack.ps1`: stops public backend+frontend by ports
+- `admin_server` - main game/admin service for game masters
+- `backend` - read-only public API (snapshot + SSE)
+- `frontend` - public website UI for map/players/logs
 
-## Architecture
+If your local folder names include the `meshcity_` prefix (`meshcity_admin_server`, `meshcity_backend`, `meshcity_frontend`), they correspond 1:1 to the roles above.
 
-### 1. Admin Server (main/root project)
-The root folder is the core system used by the game master.
-It handles:
-- live Meshtastic device connection
-- player command parsing
-- game state updates
-- world management
-- admin dashboard and moderation tooling
-- persistence to `data/*.json`
+## What Each App Does
 
-### 2. Public Backend (`meshcity_backend`)
-A safe, read-only service for publishing world state.
-It exposes only broadcast data:
-- world map
-- player list
-- player action logs
-- SSE realtime stream
+### 1) `admin_server` (core game app)
 
-No admin/write routes are exposed here.
+Main responsibilities:
+- Meshtastic device connection and DM command handling
+- game logic, world updates, player actions
+- admin dashboard and moderation actions
+- persistence in JSON data files (`world`, `players`, `logs`, `device`)
 
-### 3. Public Frontend (`meshcity_frontend`)
-A player-facing broadcast UI (Windows-95-inspired style) that shows:
-- live world map
-- player table
-- player action logs
-- player modal details
-- zoom/pinch controls
+This is the authoritative source of game state.
 
-This frontend cannot edit map, delete players, or run admin actions.
+### 2) `backend` (public read-only API)
+
+Main responsibilities:
+- read state produced by `admin_server`
+- expose safe public endpoints
+- provide realtime stream for observers
+
+Typical endpoints:
+- `GET /health`
+- `GET /api/public/state`
+- `GET /api/public/stream` (SSE)
+
+No admin/write endpoints should be exposed here.
+
+### 3) `frontend` (public website)
+
+Main responsibilities:
+- display read-only map/player/log broadcast
+- consume `backend` snapshot + stream endpoints
+- provide an accessible external view for users who are not on the local admin network
+
+This app does not modify game state.
 
 ## Data Flow
 
-1. Admin server updates game state in `data/` JSON files.
-2. Public backend reads those files and sanitizes output.
-3. Public frontend consumes:
-   - `GET /api/public/state` (snapshot)
-   - `GET /api/public/stream` (SSE realtime)
+1. `admin_server` updates game state files.
+2. `backend` reads and sanitizes that data.
+3. `frontend` renders it via REST + SSE.
 
-## Core Gameplay Commands
+## Local Run (separate apps)
 
-### Core
-- `START` - start player session
-- `NAME <district>` - set district name (after first claim)
-- `STATUS` - player and district summary
-- `RESOURCES` - resource stock
-- `PAUSE` - pause session
-- `CONTINUE` - resume session
-
-### Expansion
-- `MOVE <n|s|e|w>` - move on map
-- `SCAN` - inspect nearby tiles
-- `TILE [x y]` - show tile owner/buildings/resources
-- `LAND` - territory summary and next claim cost
-- `CLAIM <x> <y>` - claim adjacent valid land
-
-### Economy
-- `HARVEST [x y]` - collect district income from a tile
-- `BUILD <home|farm|mill|mine|shop|hall> <x> <y>` - build on valid claimed tile
-
-### Market
-- `TRADE LIST`
-- `TRADE SELL <resource> <qty> <unitPrice>`
-- `TRADE BUY <offerId> <qty>`
-- `TRADE CANCEL <offerId>`
-
-### Social
-- `CHAT <message>`
-- `CHAT CLEAR`
-
-### Help Categories (radio flow)
-- `HELP`, then one category:
-  - `CORE`
-  - `EXPANSION`
-  - `ECONOMY`
-  - `MARKET`
-  - `SOCIAL`
-  - `SYSTEM`
-
-## Local Run Guide
-
-## Requirements
+Requirements:
 - Node.js 18+
-- (Optional for real radio integration) Python + Meshtastic CLI/package
+- (optional) Python + Meshtastic tooling for real radio integration
 
-## A) Run Admin Server (main)
-From repo root:
+Run each app from its own folder:
 
 ```powershell
+# admin_server
+cd .\admin_server
+npm start
+
+# backend
+cd ..\backend
+npm start
+
+# frontend
+cd ..\frontend
 npm start
 ```
 
-Admin dashboard default URL:
-- `http://localhost:3000`
+Default local ports (example):
+- admin_server: `3000`
+- backend: `4100`
+- frontend: `4200`
 
-## B) Run Public Broadcast Stack
-From repo root:
+## Core Gameplay Commands (radio DM)
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\start-public-stack.ps1
-```
-
-This starts:
-- public backend: `http://localhost:4100`
-- public frontend: `http://localhost:4200`
-
-Stop stack:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\stop-public-stack.ps1
-```
-
-## Environment Variables
-
-## Root `.env` (admin context)
-Example:
-
-```env
-PORT=3000
-SIGNALING_BACKEND_URL=http://localhost:4100
-PUBLIC_BROADCAST_BACKEND_URL=http://localhost:4100
-PUBLIC_BROADCAST_FRONTEND_URL=http://localhost:4200
-```
-
-## `meshcity_backend/.env`
-Example:
-
-```env
-PORT=4100
-HOST=0.0.0.0
-SOURCE_DATA_DIR=../data
-FRONTEND_ORIGIN=*
-POLL_INTERVAL_MS=1000
-MAX_LOGS=120
-```
-
-## `meshcity_frontend/.env`
-Example:
-
-```env
-PORT=4200
-HOST=0.0.0.0
-BACKEND_URL=http://localhost:4100
-SIGNALING_BACKEND_URL=http://localhost:4100
-```
-
-## Deployment Notes (Railway / cloud)
-
-Typical setup:
-1. Deploy `meshcity_backend` as a service.
-2. Deploy `meshcity_frontend` as a separate service.
-3. Set `BACKEND_URL` in frontend env to the deployed backend URL.
-4. Set CORS in backend with `FRONTEND_ORIGIN` to frontend domain.
-
-After deployment, replace local URLs in env files with your Railway URLs.
-
-## What the Public Frontend Shows
-
-- map name from world metadata
-- tile terrain + ownership overlay
-- players (including avatar emoji)
-- player territories and buildings
-- discovered/open resources (not full hidden resource map)
-- realtime logs of player actions
-
-## What the Public Frontend Does NOT Allow
-
-- no admin controls
-- no map editing
-- no player deletion
-- no device connection controls
-
-## Troubleshooting
-
-## "Cannot access server"
-- verify process is running on expected port
-- check `.env` values
-- check Windows firewall for ports 3000/4100/4200
-- hard refresh browser (`Ctrl+F5`)
-
-## Public frontend opens but no data
-- verify backend URL in `meshcity_frontend/.env`
-- verify backend health: `http://localhost:4100/health`
-- verify state endpoint: `http://localhost:4100/api/public/state`
-
-## Mesh device issues
-- confirm device appears on correct COM port
-- reconnect from admin dashboard
-- check admin logs in `data/logs.json`
-
-## License / Project Links
-
-- Official game site: https://meshcity.fun
+- `START`, `PAUSE`, `CONTINUE`
+- `NAME <district>`, `STATUS`, `RESOURCES`
+- `MOVE <n|s|e|w>`, `SCAN`, `TILE [x y]`, `LAND`, `CLAIM <x> <y>`
+- `HARVEST [x y]`, `BUILD <home|farm|mill|mine|shop|hall> <x> <y>`
+- `TRADE LIST`, `TRADE SELL`, `TRADE BUY`, `TRADE CANCEL`
+- `CHAT <message>`, `CHAT CLEAR`
+- `HELP` with categories: `CORE`, `EXPANSION`, `ECONOMY`, `MARKET`, `SOCIAL`, `SYSTEM`
 
