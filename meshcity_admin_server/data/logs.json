@@ -1,30 +1,6 @@
 {
   "logs": [
     {
-      "id": "log_1772974690584_a70e6b",
-      "timestamp": "2026-03-08T12:58:10.584Z",
-      "scope": "bot",
-      "message": "Iokeis: claim 18 9"
-    },
-    {
-      "id": "log_1772974690726_3682fb",
-      "timestamp": "2026-03-08T12:58:10.726Z",
-      "scope": "tx",
-      "message": "DM queued to !b53a27d5: Claimed 18,9 for 170 CR. Expand only from adjacent tiles."
-    },
-    {
-      "id": "log_1772974690769_8a9f60",
-      "timestamp": "2026-03-08T12:58:10.769Z",
-      "scope": "bot",
-      "message": "Cakean: move e"
-    },
-    {
-      "id": "log_1772974690941_110280",
-      "timestamp": "2026-03-08T12:58:10.941Z",
-      "scope": "tx",
-      "message": "DM queued to !0ca66c78: Moved to [29,62] (town)."
-    },
-    {
       "id": "log_1772974694624_50df17",
       "timestamp": "2026-03-08T12:58:14.624Z",
       "scope": "bot",
@@ -1799,6 +1775,30 @@
       "timestamp": "2026-03-08T13:04:31.567Z",
       "scope": "tx",
       "message": "DM queued to !0ca66c78: Harvested 31,62 (town). CR +3, Food +2, Wood +1, Stone +1."
+    },
+    {
+      "id": "log_1772975075384_8df3e9",
+      "timestamp": "2026-03-08T13:04:35.384Z",
+      "scope": "bot",
+      "message": "Iorith: harvest 46 25"
+    },
+    {
+      "id": "log_1772975075478_d54e62",
+      "timestamp": "2026-03-08T13:04:35.478Z",
+      "scope": "tx",
+      "message": "DM queued to !1cfa8540: Harvested 46,25 (town). CR +3, Food +2, Wood +1, Stone +2."
+    },
+    {
+      "id": "log_1772975075510_32183b",
+      "timestamp": "2026-03-08T13:04:35.510Z",
+      "scope": "bot",
+      "message": "Razuen: harvest 56 18"
+    },
+    {
+      "id": "log_1772975075602_2f2fb7",
+      "timestamp": "2026-03-08T13:04:35.602Z",
+      "scope": "tx",
+      "message": "DM queued to !ae4e87a4: Harvested 56,18 (town). CR +3, Food +4, Wood +1, Stone +2."
     }
   ]
 }
