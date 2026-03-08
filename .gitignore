@@ -32,3 +32,4 @@ meshcity_admin_server/backup/
 meshcity_admin_server/scripts/__pycache__/
 backup/
 meshcity_admin_server/.env
+meshcity_frontend/.env
