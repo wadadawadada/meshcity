@@ -280,6 +280,8 @@ th {
 
 .modal-card {
   width: min(520px, 100%);
+  max-height: min(90vh, 900px);
+  overflow: auto;
   border: 2px solid var(--line-mid);
   border-top-color: var(--line-light);
   border-left-color: var(--line-light);
@@ -300,23 +302,134 @@ th {
 
 .player-card {
   display: grid;
-  gap: 6px;
+  gap: 12px;
 }
 
-.player-card hr {
-  border: 0;
-  border-top: 1px solid #9a9a9a;
-  margin: 4px 0;
-}
-
-.player-card .line {
+.cell-card {
   display: grid;
-  grid-template-columns: 130px 1fr;
+  gap: 10px;
+}
+
+.player-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #8f8f8f;
+  background: #efefef;
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  border: 1px solid #8f8f8f;
+  background: #fff;
+}
+
+.player-name,
+.cell-title {
+  font-family: "Press Start 2P", Consolas, monospace;
+}
+
+.player-name {
+  font-size: 14px;
+}
+
+.player-node,
+.cell-subtitle {
+  color: #333;
+}
+
+.player-stats-grid,
+.player-resource-grid,
+.player-meta-grid,
+.cell-info-grid {
+  display: grid;
   gap: 8px;
 }
 
-.player-card .label {
-  color: #1d3f5a;
+.player-stats-grid,
+.player-resource-grid,
+.cell-info-grid {
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+.player-meta-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.player-stat-box,
+.player-meta-grid > div,
+.player-resource-grid > div,
+.cell-info-grid > div,
+.player-resource-block,
+.player-building-block,
+.cell-section {
+  border: 1px solid #8f8f8f;
+  background: #efefef;
+}
+
+.player-stat-box,
+.player-meta-grid > div,
+.player-resource-grid > div,
+.cell-info-grid > div {
+  padding: 8px;
+}
+
+.player-resource-block,
+.player-building-block,
+.cell-section {
+  padding: 8px;
+}
+
+.player-stat-box span,
+.player-meta-grid span,
+.player-resource-block > span,
+.player-building-block > span,
+.cell-info-grid span,
+.cell-section > span {
+  display: block;
+  margin-bottom: 4px;
+  color: #444;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.player-stat-box strong,
+.player-meta-grid strong,
+.cell-info-grid strong {
+  font-size: 15px;
+}
+
+.player-building-list,
+.cell-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cell-jump-btn,
+.cell-player-link,
+.cell-chip {
+  border: 1px solid #8f8f8f;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  padding: 6px 8px;
+}
+
+.cell-jump-btn,
+.cell-player-link {
+  cursor: pointer;
+}
+
+.cell-empty,
+.player-building-empty {
+  color: #555;
 }
 
 .help-modal-body {

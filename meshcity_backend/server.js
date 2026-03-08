@@ -217,6 +217,9 @@ function sanitizePlayers(players, world) {
         credits: Number(stats.credits || 0)
       },
       gameState: {
+        hasStarted: Boolean(gameState.hasStarted),
+        sessionActive: Boolean(gameState.sessionActive),
+        location: String(gameState.location || ""),
         cityName: String(gameState.cityName || ""),
         districtName: String(gameState.districtName || ""),
         cityLevel: Number(gameState.cityLevel || 1),
@@ -225,7 +228,8 @@ function sanitizePlayers(players, world) {
         buildings: gameState.buildings && typeof gameState.buildings === "object" ? gameState.buildings : {},
         resources: gameState.resources && typeof gameState.resources === "object" ? gameState.resources : {},
         cityCore: gameState.cityCore ? String(gameState.cityCore) : null,
-        lastActionAt: gameState.lastActionAt || null
+        lastActionAt: gameState.lastActionAt || null,
+        startedAt: gameState.startedAt || null
       }
     };
   });

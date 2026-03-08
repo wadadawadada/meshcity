@@ -197,6 +197,85 @@ function getPlayerByNodeId(nodeId) {
   return state.players.find((player) => player.nodeId === nodeId) || null;
 }
 
+function formatIsoDate(iso) {
+  if (!iso) return "n/a";
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "n/a";
+  return date.toLocaleString();
+}
+
+function getOpenedCellSet() {
+  const openedCells = new Set();
+  const landClaims = state.world && state.world.landClaims && typeof state.world.landClaims === "object"
+    ? state.world.landClaims
+    : {};
+
+  for (const coord of Object.keys(landClaims)) {
+    openedCells.add(coord);
+  }
+
+  for (const player of state.players) {
+    if (!player || !player.position) continue;
+    const px = Number(player.position.x);
+    const py = Number(player.position.y);
+    if (!Number.isInteger(px) || !Number.isInteger(py)) continue;
+
+    for (let dy = -1; dy <= 1; dy += 1) {
+      for (let dx = -1; dx <= 1; dx += 1) {
+        openedCells.add(`${px + dx},${py + dy}`);
+      }
+    }
+  }
+
+  return openedCells;
+}
+
+function getCellData(x, y) {
+  const world = state.world || {};
+  const tiles = world.map && world.map.tiles && typeof world.map.tiles === "object" ? world.map.tiles : {};
+  const tile = tiles[`${x},${y}`] || { terrain: "plain", blocked: false, label: "" };
+  const landClaims = world.landClaims && typeof world.landClaims === "object" ? world.landClaims : {};
+  const ownerNodeId = landClaims[`${x},${y}`] || "";
+  const ownerPlayer = ownerNodeId ? getPlayerByNodeId(ownerNodeId) : null;
+  const players = state.players.filter((player) =>
+    player &&
+    player.position &&
+    Number(player.position.x) === x &&
+    Number(player.position.y) === y
+  );
+  const entities = Array.isArray(world.entities)
+    ? world.entities.filter((entity) => Number(entity.x) === x && Number(entity.y) === y)
+    : [];
+
+  const buildings = [];
+  for (const player of state.players) {
+    const raw = player && player.gameState && player.gameState.buildings
+      ? player.gameState.buildings[`${x},${y}`]
+      : null;
+    const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
+    for (const type of list) {
+      buildings.push({
+        type: String(type || "building"),
+        nodeId: player.nodeId,
+        playerName: player.shortName
+      });
+    }
+  }
+
+  return {
+    tile,
+    players,
+    entities,
+    ownerNodeId,
+    ownerPlayer,
+    isCityCore: state.players.some((player) => player && player.gameState && player.gameState.cityCore === `${x},${y}`),
+    buildings,
+    districtName: ownerPlayer && ownerPlayer.gameState
+      ? ownerPlayer.gameState.districtName || ownerPlayer.gameState.cityName || ""
+      : ""
+  };
+}
+
 function drawWorld() {
   if (!state.world || !state.world.map) {
     return;
@@ -303,45 +382,136 @@ function centerMapOnCoord(x, y) {
 function openPlayerModal(player) {
   const modal = document.getElementById("player-modal");
   const body = document.getElementById("player-modal-body");
-  const pos = player && player.position ? `${player.position.x},${player.position.y}` : "-";
   const stats = player && player.stats ? player.stats : {};
   const gameState = player && player.gameState ? player.gameState : {};
   const resources = gameState.resources && typeof gameState.resources === "object" ? gameState.resources : {};
-  const buildings = gameState.buildings && typeof gameState.buildings === "object" ? gameState.buildings : {};
-  const buildingRows = Object.entries(buildings)
-    .map(([coord, list]) => {
-      const normalized = Array.isArray(list) ? list : list ? [list] : [];
-      if (!normalized.length) return "";
-      return `<div class="line"><span class="label">${escapeHtml(coord)}</span><span>${escapeHtml(normalized.join(", "))}</span></div>`;
-    })
-    .filter(Boolean)
-    .join("");
-
   const claimedList = Array.isArray(gameState.claimedCells) ? gameState.claimedCells : [];
+  const buildingEntries = Object.entries(gameState.buildings && typeof gameState.buildings === "object" ? gameState.buildings : {});
+  const totalBuildings = buildingEntries.reduce((sum, [, list]) => sum + (Array.isArray(list) ? list.length : (list ? 1 : 0)), 0);
+  const position = player && player.position ? `${player.position.x},${player.position.y}` : "n/a";
 
   body.innerHTML = `
-    <div class="player-card">
-      <div class="line"><span class="label">Player</span><strong>${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</strong></div>
-      <div class="line"><span class="label">Node ID</span><span>${escapeHtml(player.nodeId || "-")}</span></div>
-      <div class="line"><span class="label">Position</span><span>${escapeHtml(pos)}</span></div>
-      <div class="line"><span class="label">Credits</span><span>${escapeHtml(stats.credits || 0)}</span></div>
-      <div class="line"><span class="label">Level / HP / XP</span><span>${escapeHtml(stats.level || 0)} / ${escapeHtml(stats.hp || 0)} / ${escapeHtml(stats.xp || 0)}</span></div>
-      <div class="line"><span class="label">District</span><span>${escapeHtml(gameState.districtName || gameState.cityName || "-")}</span></div>
-      <div class="line"><span class="label">Territory</span><span>${escapeHtml(claimedList.length)} cells</span></div>
-      <div class="line"><span class="label">Resources</span><span>wood:${escapeHtml(resources.wood || 0)} stone:${escapeHtml(resources.stone || 0)} iron:${escapeHtml(resources.iron || 0)} copper:${escapeHtml(resources.copper || 0)} crystal:${escapeHtml(resources.crystal || 0)} food:${escapeHtml(resources.food || 0)}</span></div>
-      <div class="line"><span class="label">State</span><span>${escapeHtml(player.registrationState || "unknown")}</span></div>
-      <div class="line"><span class="label">Last Action</span><span>${escapeHtml(formatTime(gameState.lastActionAt))}</span></div>
-      <hr>
-      <div><strong>Buildings</strong></div>
-      ${buildingRows || `<div class="line"><span class="label">-</span><span>no buildings</span></div>`}
-    </div>
+    <article class="player-card">
+      <div class="player-hero">
+        <div class="player-avatar">${escapeHtml(player.avatar || "\u{1F9D1}")}</div>
+        <div>
+          <div class="player-name">${escapeHtml(player.shortName || "Unknown")}</div>
+          <div class="player-node">${escapeHtml(player.nodeId || "n/a")}</div>
+        </div>
+      </div>
+      <div class="player-stats-grid">
+        <div class="player-stat-box"><span>Credits</span><strong>${escapeHtml(stats.credits ?? 0)}</strong></div>
+        <div class="player-stat-box"><span>Land</span><strong>${escapeHtml(claimedList.length)}</strong></div>
+        <div class="player-stat-box"><span>Land LV</span><strong>${escapeHtml(gameState.cityLevel ?? 1)}</strong></div>
+        <div class="player-stat-box"><span>Status</span><strong>${escapeHtml(gameState.sessionActive ? "ACTIVE" : "PAUSED")}</strong></div>
+      </div>
+      <div class="player-meta-grid">
+        <div><span>District</span><strong>${escapeHtml(gameState.districtName || gameState.cityName || "unnamed")}</strong></div>
+        <div><span>Position</span><strong>${escapeHtml(position)}</strong></div>
+        <div><span>Location</span><strong>${escapeHtml(gameState.location || "n/a")}</strong></div>
+        <div><span>Claims</span><strong>${escapeHtml(claimedList.join(" ") || "n/a")}</strong></div>
+        <div><span>Started</span><strong>${escapeHtml(formatIsoDate(gameState.startedAt))}</strong></div>
+        <div><span>Last Action</span><strong>${escapeHtml(formatIsoDate(gameState.lastActionAt))}</strong></div>
+        <div><span>State</span><strong>${escapeHtml(player.registrationState || "unknown")}</strong></div>
+        <div><span>Level / HP / XP</span><strong>${escapeHtml(stats.level ?? 0)} / ${escapeHtml(stats.hp ?? 0)} / ${escapeHtml(stats.xp ?? 0)}</strong></div>
+      </div>
+      <div class="player-resource-block">
+        <span>Resources</span>
+        <div class="player-resource-grid">
+          <div>WOOD ${escapeHtml(resources.wood ?? 0)}</div>
+          <div>STONE ${escapeHtml(resources.stone ?? 0)}</div>
+          <div>IRON ${escapeHtml(resources.iron ?? 0)}</div>
+          <div>COPPER ${escapeHtml(resources.copper ?? 0)}</div>
+          <div>CRYSTAL ${escapeHtml(resources.crystal ?? 0)}</div>
+          <div>FOOD ${escapeHtml(resources.food ?? 0)}</div>
+        </div>
+      </div>
+      <div class="player-building-block">
+        <span>Buildings (${totalBuildings})</span>
+        <div class="player-building-list">
+          ${buildingEntries.length ? buildingEntries.map(([cell, list]) => (
+            `<button class="cell-jump-btn" data-coord="${escapeHtml(cell)}" type="button">${escapeHtml(cell)}: ${escapeHtml((Array.isArray(list) ? list : [list]).join(", "))}</button>`
+          )).join("") : `<div class="player-building-empty">No buildings</div>`}
+        </div>
+      </div>
+    </article>
   `;
+
+  for (const button of body.querySelectorAll(".cell-jump-btn")) {
+    button.addEventListener("click", () => {
+      const coord = button.getAttribute("data-coord");
+      const parsed = parseCoordKey(coord);
+      if (!parsed) return;
+      closePlayerModal();
+      openCellModal(parsed.x, parsed.y);
+    });
+  }
 
   modal.classList.remove("hidden");
 }
 
 function closePlayerModal() {
   document.getElementById("player-modal").classList.add("hidden");
+}
+
+function openCellModal(x, y) {
+  const modal = document.getElementById("cell-modal");
+  const body = document.getElementById("cell-modal-body");
+  const { tile, players, entities, ownerNodeId, ownerPlayer, isCityCore, buildings, districtName } = getCellData(x, y);
+  const ownerLabel = ownerPlayer ? `${ownerPlayer.shortName} (${ownerPlayer.nodeId})` : ownerNodeId || "free";
+  const locationLabel = districtName || tile.label || "Unnamed land";
+
+  body.innerHTML = `
+    <article class="cell-card">
+      <div class="cell-title">CELL [${x},${y}]</div>
+      <div class="cell-subtitle">${escapeHtml(tile.terrain)}${tile.blocked ? " / BLOCKED" : ""}</div>
+      <div class="cell-subtitle">${escapeHtml(locationLabel)}</div>
+      <div class="cell-info-grid">
+        <div><span>Owner</span><strong>${escapeHtml(ownerLabel)}</strong></div>
+        <div><span>HQ</span><strong>${isCityCore ? "yes" : "no"}</strong></div>
+      </div>
+      <div class="cell-section">
+        <span>Buildings</span>
+        <div class="cell-chip-row">
+          ${buildings.length ? buildings.map((building) => (
+            `<span class="cell-chip">${escapeHtml(buildingEmoji(building.type))} ${escapeHtml(building.type)}${building.playerName ? ` / ${escapeHtml(building.playerName)}` : ""}</span>`
+          )).join("") : `<span class="cell-empty">none</span>`}
+        </div>
+      </div>
+      <div class="cell-section">
+        <span>Players</span>
+        <div class="cell-chip-row">
+          ${players.length ? players.map((player) => (
+            `<button class="cell-player-link" data-node-id="${escapeHtml(player.nodeId)}" type="button">${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</button>`
+          )).join("") : `<span class="cell-empty">none</span>`}
+        </div>
+      </div>
+      <div class="cell-section">
+        <span>Entities</span>
+        <div class="cell-chip-row">
+          ${entities.length ? entities.map((entity) => (
+            `<span class="cell-chip">${escapeHtml(resourceEmoji(entity))} ${escapeHtml(entity.name || entity.type || "entity")}</span>`
+          )).join("") : `<span class="cell-empty">none</span>`}
+        </div>
+      </div>
+    </article>
+  `;
+
+  for (const button of body.querySelectorAll(".cell-player-link")) {
+    button.addEventListener("click", () => {
+      const nodeId = button.getAttribute("data-node-id");
+      const player = getPlayerByNodeId(nodeId);
+      if (!player) return;
+      closeCellModal();
+      openPlayerModal(player);
+    });
+  }
+
+  modal.classList.remove("hidden");
+}
+
+function closeCellModal() {
+  document.getElementById("cell-modal").classList.add("hidden");
 }
 
 function renderPlayers() {
@@ -613,6 +783,8 @@ function initMapInteractions() {
     const rect = canvas.getBoundingClientRect();
     const x = Math.floor((event.clientX - rect.left) / currentTileSize());
     const y = Math.floor((event.clientY - rect.top) / currentTileSize());
+    const openedCells = getOpenedCellSet();
+    const key = `${x},${y}`;
 
     const playerAtCell = state.players.find((p) => p.position && p.position.x === x && p.position.y === y);
     if (playerAtCell) {
@@ -620,24 +792,28 @@ function initMapInteractions() {
       return;
     }
 
-    const ownerNodeId = state.world.landClaims && state.world.landClaims[`${x},${y}`];
-    if (ownerNodeId) {
-      const owner = getPlayerByNodeId(ownerNodeId);
-      if (owner) {
-        openPlayerModal(owner);
-      }
+    if (openedCells.has(key)) {
+      openCellModal(x, y);
     }
   });
 }
 
 function initModals() {
   const playerModal = document.getElementById("player-modal");
+  const cellModal = document.getElementById("cell-modal");
   const helpModal = document.getElementById("help-modal");
 
   document.getElementById("player-modal-close").addEventListener("click", closePlayerModal);
   playerModal.addEventListener("click", (event) => {
     if (event.target === playerModal) {
       closePlayerModal();
+    }
+  });
+
+  document.getElementById("cell-modal-close").addEventListener("click", closeCellModal);
+  cellModal.addEventListener("click", (event) => {
+    if (event.target === cellModal) {
+      closeCellModal();
     }
   });
 
