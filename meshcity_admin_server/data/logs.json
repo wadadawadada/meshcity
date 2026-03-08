@@ -1,30 +1,6 @@
 {
   "logs": [
     {
-      "id": "log_1772974710766_b39572",
-      "timestamp": "2026-03-08T12:58:30.766Z",
-      "scope": "bot",
-      "message": "Iokeis: harvest 18 9"
-    },
-    {
-      "id": "log_1772974710859_0d7df0",
-      "timestamp": "2026-03-08T12:58:30.859Z",
-      "scope": "tx",
-      "message": "DM queued to !b53a27d5: Harvested 18,9 (town). CR +3, Food +4, Wood +2, Stone +2."
-    },
-    {
-      "id": "log_1772974710895_b0deda",
-      "timestamp": "2026-03-08T12:58:30.895Z",
-      "scope": "bot",
-      "message": "Razuen: harvest 58 18"
-    },
-    {
-      "id": "log_1772974710992_ae20cf",
-      "timestamp": "2026-03-08T12:58:30.992Z",
-      "scope": "tx",
-      "message": "DM queued to !ae4e87a4: Harvested 58,18 (town). CR +3, Food +3, Wood +2, Stone +2."
-    },
-    {
       "id": "log_1772974711031_2dc170",
       "timestamp": "2026-03-08T12:58:31.031Z",
       "scope": "bot",
@@ -1799,6 +1775,30 @@
       "timestamp": "2026-03-08T13:04:47.910Z",
       "scope": "tx",
       "message": "DM queued to !ffa2ace3: Harvested 5,32 (plain). CR +2, Food +5, Wood +1, Stone +0."
+    },
+    {
+      "id": "log_1772975095424_890b2c",
+      "timestamp": "2026-03-08T13:04:55.424Z",
+      "scope": "bot",
+      "message": "Iokeis: move w"
+    },
+    {
+      "id": "log_1772975095581_eab68b",
+      "timestamp": "2026-03-08T13:04:55.581Z",
+      "scope": "tx",
+      "message": "DM queued to !b53a27d5: Moved to [13,9] (town)."
+    },
+    {
+      "id": "log_1772975095616_12d667",
+      "timestamp": "2026-03-08T13:04:55.616Z",
+      "scope": "bot",
+      "message": "Nasos: harvest 19 34"
+    },
+    {
+      "id": "log_1772975095708_3eaaa1",
+      "timestamp": "2026-03-08T13:04:55.708Z",
+      "scope": "tx",
+      "message": "DM queued to !eed83988: Harvested 19,34 (town). CR +3, Food +2, Wood +1, Stone +2."
     }
   ]
 }
