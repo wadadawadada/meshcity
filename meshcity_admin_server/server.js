@@ -107,6 +107,7 @@ function openBrowser(url) {
 server.listen(PORT, () => {
   const url = `http://localhost:${PORT}`;
   store.appendLog("system", `MESHCITY dashboard started on ${url}`);
+  meshtasticService.restoreConnectionFromSavedState();
   publicSync.enqueueSync({
     world: store.getWorld(),
     players: store.getPlayers(),

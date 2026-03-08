@@ -1,5 +1,5 @@
 {
-  "name": "Great Varna",
+  "name": "Varna",
   "map": {
     "width": 82,
     "height": 66,
@@ -31212,9 +31212,39 @@
   ],
   "playerPositions": {
     "!7d08653c": {
-      "x": 15,
-      "y": 55,
-      "updatedAt": "2026-03-08T08:24:33.327Z"
+      "x": 16,
+      "y": 57,
+      "updatedAt": "2026-03-08T10:40:41.099Z"
+    },
+    "!1cfa8540": {
+      "x": 46,
+      "y": 25,
+      "updatedAt": "2026-03-08T13:03:55.354Z"
+    },
+    "!b53a27d5": {
+      "x": 14,
+      "y": 9,
+      "updatedAt": "2026-03-08T13:03:11.213Z"
+    },
+    "!ae4e87a4": {
+      "x": 56,
+      "y": 18,
+      "updatedAt": "2026-03-08T13:03:55.664Z"
+    },
+    "!eed83988": {
+      "x": 19,
+      "y": 34,
+      "updatedAt": "2026-03-08T13:03:39.531Z"
+    },
+    "!0ca66c78": {
+      "x": 31,
+      "y": 62,
+      "updatedAt": "2026-03-08T13:03:03.193Z"
+    },
+    "!ffa2ace3": {
+      "x": 5,
+      "y": 32,
+      "updatedAt": "2026-03-08T13:03:23.497Z"
     }
   },
   "landClaims": {
@@ -31222,8 +31252,395 @@
     "14,57": "!7d08653c",
     "15,57": "!7d08653c",
     "15,56": "!7d08653c",
-    "14,55": "!7d08653c"
+    "14,55": "!7d08653c",
+    "16,57": "!7d08653c",
+    "39,24": "!1cfa8540",
+    "58,17": "!ae4e87a4",
+    "12,8": "!b53a27d5",
+    "10,33": "!eed83988",
+    "22,62": "!0ca66c78",
+    "4,33": "!ffa2ace3",
+    "13,8": "!b53a27d5",
+    "14,8": "!b53a27d5",
+    "11,33": "!eed83988",
+    "23,62": "!0ca66c78",
+    "15,8": "!b53a27d5",
+    "12,33": "!eed83988",
+    "16,8": "!b53a27d5",
+    "5,33": "!ffa2ace3",
+    "40,24": "!1cfa8540",
+    "24,62": "!0ca66c78",
+    "6,33": "!ffa2ace3",
+    "13,33": "!eed83988",
+    "59,17": "!ae4e87a4",
+    "14,33": "!eed83988",
+    "41,24": "!1cfa8540",
+    "17,8": "!b53a27d5",
+    "60,17": "!ae4e87a4",
+    "25,62": "!0ca66c78",
+    "42,24": "!1cfa8540",
+    "7,33": "!ffa2ace3",
+    "15,33": "!eed83988",
+    "8,33": "!ffa2ace3",
+    "18,8": "!b53a27d5",
+    "26,62": "!0ca66c78",
+    "43,24": "!1cfa8540",
+    "61,17": "!ae4e87a4",
+    "27,62": "!0ca66c78",
+    "19,8": "!b53a27d5",
+    "61,18": "!ae4e87a4",
+    "9,33": "!ffa2ace3",
+    "60,18": "!ae4e87a4",
+    "9,32": "!ffa2ace3",
+    "16,33": "!eed83988",
+    "44,24": "!1cfa8540",
+    "59,18": "!ae4e87a4",
+    "8,32": "!ffa2ace3",
+    "28,62": "!0ca66c78",
+    "17,33": "!eed83988",
+    "45,24": "!1cfa8540",
+    "58,18": "!ae4e87a4",
+    "18,33": "!eed83988",
+    "18,9": "!b53a27d5",
+    "46,24": "!1cfa8540",
+    "7,32": "!ffa2ace3",
+    "19,33": "!eed83988",
+    "57,18": "!ae4e87a4",
+    "17,9": "!b53a27d5",
+    "29,62": "!0ca66c78",
+    "16,9": "!b53a27d5",
+    "6,32": "!ffa2ace3",
+    "47,24": "!1cfa8540",
+    "20,33": "!eed83988",
+    "30,62": "!0ca66c78",
+    "15,9": "!b53a27d5",
+    "20,34": "!eed83988",
+    "57,17": "!ae4e87a4",
+    "47,25": "!1cfa8540",
+    "31,62": "!0ca66c78",
+    "14,9": "!b53a27d5",
+    "5,32": "!ffa2ace3",
+    "56,17": "!ae4e87a4",
+    "46,25": "!1cfa8540",
+    "56,18": "!ae4e87a4",
+    "19,34": "!eed83988"
   },
-  "marketOffers": [],
-  "updatedAt": "2026-03-08T08:24:33.334Z"
+  "marketOffers": [
+    {
+      "id": "OQZ3MKQN",
+      "sellerNodeId": "!ffa2ace3",
+      "sellerName": "Gael",
+      "resource": "wood",
+      "qty": 4,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:47:34.172Z"
+    },
+    {
+      "id": "OQZFHBLN",
+      "sellerNodeId": "!1cfa8540",
+      "sellerName": "Iorith",
+      "resource": "wood",
+      "qty": 2,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:47:49.535Z"
+    },
+    {
+      "id": "OQZFTF5Q",
+      "sellerNodeId": "!0ca66c78",
+      "sellerName": "Cakean",
+      "resource": "wood",
+      "qty": 4,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:47:49.971Z"
+    },
+    {
+      "id": "OR07EEWK",
+      "sellerNodeId": "!eed83988",
+      "sellerName": "Nasos",
+      "resource": "wood",
+      "qty": 4,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:48:25.718Z"
+    },
+    {
+      "id": "OR1EJZGS",
+      "sellerNodeId": "!b53a27d5",
+      "sellerName": "Iokeis",
+      "resource": "wood",
+      "qty": 1,
+      "unitPrice": 9,
+      "createdAt": "2026-03-08T12:49:21.647Z"
+    },
+    {
+      "id": "OR1KU84V",
+      "sellerNodeId": "!ffa2ace3",
+      "sellerName": "Gael",
+      "resource": "food",
+      "qty": 10,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:49:29.792Z"
+    },
+    {
+      "id": "OR23BN2G",
+      "sellerNodeId": "!ae4e87a4",
+      "sellerName": "Razuen",
+      "resource": "wood",
+      "qty": 4,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:49:53.747Z"
+    },
+    {
+      "id": "OR23GV23",
+      "sellerNodeId": "!0ca66c78",
+      "sellerName": "Cakean",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:49:53.935Z"
+    },
+    {
+      "id": "OR2FR2F4",
+      "sellerNodeId": "!0ca66c78",
+      "sellerName": "Cakean",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:50:09.854Z"
+    },
+    {
+      "id": "OR2P4HDZ",
+      "sellerNodeId": "!ffa2ace3",
+      "sellerName": "Gael",
+      "resource": "food",
+      "qty": 10,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:50:22.001Z"
+    },
+    {
+      "id": "OR37QMV1",
+      "sellerNodeId": "!ae4e87a4",
+      "sellerName": "Razuen",
+      "resource": "stone",
+      "qty": 7,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:50:46.126Z"
+    },
+    {
+      "id": "OR3JUCHV",
+      "sellerNodeId": "!b53a27d5",
+      "sellerName": "Iokeis",
+      "resource": "wood",
+      "qty": 3,
+      "unitPrice": 9,
+      "createdAt": "2026-03-08T12:51:01.812Z"
+    },
+    {
+      "id": "OR3Q0NE5",
+      "sellerNodeId": "!0ca66c78",
+      "sellerName": "Cakean",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:51:09.815Z"
+    },
+    {
+      "id": "OR42E9X0",
+      "sellerNodeId": "!b53a27d5",
+      "sellerName": "Iokeis",
+      "resource": "stone",
+      "qty": 1,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:51:25.857Z"
+    },
+    {
+      "id": "OR4BOP4R",
+      "sellerNodeId": "!ae4e87a4",
+      "sellerName": "Razuen",
+      "resource": "food",
+      "qty": 10,
+      "unitPrice": 7,
+      "createdAt": "2026-03-08T12:51:37.897Z"
+    },
+    {
+      "id": "OR4HV2PN",
+      "sellerNodeId": "!1cfa8540",
+      "sellerName": "Iorith",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:51:45.902Z"
+    },
+    {
+      "id": "OR4O2FYT",
+      "sellerNodeId": "!0ca66c78",
+      "sellerName": "Cakean",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 7,
+      "createdAt": "2026-03-08T12:51:53.943Z"
+    },
+    {
+      "id": "OR4UJBP3",
+      "sellerNodeId": "!eed83988",
+      "sellerName": "Nasos",
+      "resource": "wood",
+      "qty": 6,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:52:02.327Z"
+    },
+    {
+      "id": "OR5G2PKO",
+      "sellerNodeId": "!0ca66c78",
+      "sellerName": "Cakean",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 9,
+      "createdAt": "2026-03-08T12:52:30.241Z"
+    },
+    {
+      "id": "OR5SDQ5R",
+      "sellerNodeId": "!eed83988",
+      "sellerName": "Nasos",
+      "resource": "stone",
+      "qty": 7,
+      "unitPrice": 11,
+      "createdAt": "2026-03-08T12:52:46.190Z"
+    },
+    {
+      "id": "OR6K2JA3",
+      "sellerNodeId": "!ae4e87a4",
+      "sellerName": "Razuen",
+      "resource": "wood",
+      "qty": 1,
+      "unitPrice": 9,
+      "createdAt": "2026-03-08T12:53:22.075Z"
+    },
+    {
+      "id": "OR6WJWCT",
+      "sellerNodeId": "!ffa2ace3",
+      "sellerName": "Gael",
+      "resource": "wood",
+      "qty": 7,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:53:38.252Z"
+    },
+    {
+      "id": "OR7F03DE",
+      "sellerNodeId": "!b53a27d5",
+      "sellerName": "Iokeis",
+      "resource": "wood",
+      "qty": 3,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:54:02.163Z"
+    },
+    {
+      "id": "OR7I3BVF",
+      "sellerNodeId": "!1cfa8540",
+      "sellerName": "Iorith",
+      "resource": "wood",
+      "qty": 2,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:54:06.167Z"
+    },
+    {
+      "id": "OR7UH5P5",
+      "sellerNodeId": "!ae4e87a4",
+      "sellerName": "Razuen",
+      "resource": "wood",
+      "qty": 1,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:54:22.217Z"
+    },
+    {
+      "id": "OR83QTFB",
+      "sellerNodeId": "!1cfa8540",
+      "sellerName": "Iorith",
+      "resource": "stone",
+      "qty": 7,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:54:34.229Z"
+    },
+    {
+      "id": "OR8A2HNX",
+      "sellerNodeId": "!eed83988",
+      "sellerName": "Nasos",
+      "resource": "wood",
+      "qty": 4,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:54:42.425Z"
+    },
+    {
+      "id": "OR8VOJYU",
+      "sellerNodeId": "!eed83988",
+      "sellerName": "Nasos",
+      "resource": "stone",
+      "qty": 7,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:55:10.435Z"
+    },
+    {
+      "id": "OR9859IW",
+      "sellerNodeId": "!eed83988",
+      "sellerName": "Nasos",
+      "resource": "food",
+      "qty": 10,
+      "unitPrice": 7,
+      "createdAt": "2026-03-08T12:55:26.589Z"
+    },
+    {
+      "id": "OR9NEKPJ",
+      "sellerNodeId": "!1cfa8540",
+      "sellerName": "Iorith",
+      "resource": "wood",
+      "qty": 1,
+      "unitPrice": 8,
+      "createdAt": "2026-03-08T12:55:46.364Z"
+    },
+    {
+      "id": "ORA2US7X",
+      "sellerNodeId": "!1cfa8540",
+      "sellerName": "Iorith",
+      "resource": "stone",
+      "qty": 7,
+      "unitPrice": 11,
+      "createdAt": "2026-03-08T12:56:06.388Z"
+    },
+    {
+      "id": "ORC8C8OX",
+      "sellerNodeId": "!b53a27d5",
+      "sellerName": "Iokeis",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 10,
+      "createdAt": "2026-03-08T12:57:46.808Z"
+    },
+    {
+      "id": "ORCHGAOU",
+      "sellerNodeId": "!b53a27d5",
+      "sellerName": "Iokeis",
+      "resource": "wood",
+      "qty": 3,
+      "unitPrice": 9,
+      "createdAt": "2026-03-08T12:57:58.618Z"
+    },
+    {
+      "id": "ORD03ND9",
+      "sellerNodeId": "!ffa2ace3",
+      "sellerName": "Gael",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 7,
+      "createdAt": "2026-03-08T12:58:22.787Z"
+    },
+    {
+      "id": "ORHWA2RH",
+      "sellerNodeId": "!ae4e87a4",
+      "sellerName": "Razuen",
+      "resource": "wood",
+      "qty": 8,
+      "unitPrice": 7,
+      "createdAt": "2026-03-08T13:02:11.114Z"
+    }
+  ],
+  "updatedAt": "2026-03-08T13:04:15.382Z"
 }

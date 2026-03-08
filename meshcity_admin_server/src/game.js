@@ -219,6 +219,14 @@ function ensurePlayerShape(player) {
 
   return {
     ...player,
+    isBot: Boolean(player.isBot),
+    botProfile: player.botProfile && typeof player.botProfile === "object"
+      ? {
+        pace: String(player.botProfile.pace || "slow"),
+        createdBy: player.botProfile.createdBy ? String(player.botProfile.createdBy).slice(0, 40) : "admin",
+        createdAt: player.botProfile.createdAt || null
+      }
+      : null,
     shortName: player.shortName || "Citizen",
     avatar: player.avatar ? String(player.avatar) : avatarForNodeId(player.nodeId),
     registered: Boolean(player.registered),

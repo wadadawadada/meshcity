@@ -51,6 +51,12 @@ function withWorldPositions(players, world) {
 
 function createApiHandler({ store, meshtasticService }) {
   return async (req, res, url) => {
+    if (req.method === "POST" && url.pathname === "/api/players/bot") {
+      const player = await meshtasticService.createBot();
+      sendJson(res, 200, { player });
+      return;
+    }
+
     if (req.method === "DELETE" && url.pathname.startsWith("/api/players/")) {
       const nodeId = decodeURIComponent(url.pathname.slice("/api/players/".length));
       if (!nodeId) {

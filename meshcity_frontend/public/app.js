@@ -14,6 +14,7 @@ const state = {
   world: null,
   players: [],
   logs: [],
+  hoveredPlayerNodeId: null,
   server: {
     serverOnline: false,
     lastSeenAt: null
@@ -74,28 +75,40 @@ async function fetchState() {
   return res.json();
 }
 
-function terrainColor(terrain) {
+function terrainColor(terrain, x, y) {
+  const variant = (x * 19 + y * 13) % 3;
+  const shades = {
+    plain: ["#4a7b4f", "#437248", "#3d6a42"],
+    sand: ["#a58d5a", "#a58d5a", "#a58d5a"],
+    forest: ["#2f6a3b", "#2a6035", "#24572f"],
+    water: ["#2f5f80", "#2f5f80", "#2f5f80"],
+    mountain: ["#5f676b", "#555d62", "#4d555a"],
+    town: ["#696046", "#5e5640", "#544e39"],
+    road: ["#4b5258", "#454c52", "#3f464c"]
+  };
   const key = String(terrain || "plain").toLowerCase();
-  if (key === "water") return "#246ca6";
-  if (key === "forest") return "#2d7a46";
-  if (key === "mountain") return "#777";
-  if (key === "road") return "#7f6f56";
-  if (key === "town") return "#b98552";
-  if (key === "sand") return "#d3bd7a";
-  return "#5e8f4c";
+  const palette = shades[key] || shades.plain;
+  return palette[variant];
 }
 
-function ownerColor(nodeId, alpha = 0.22) {
-  const input = String(nodeId || "none");
+function ownerPalette(nodeId) {
+  const source = String(nodeId || "none");
   let hash = 0;
-  for (let i = 0; i < input.length; i += 1) {
-    hash = (hash * 31 + input.charCodeAt(i)) % 360;
+  for (let i = 0; i < source.length; i += 1) {
+    hash = (hash * 31 + source.charCodeAt(i)) % 360;
   }
-  return `hsla(${hash}, 80%, 55%, ${alpha})`;
+  const hue = hash;
+  return {
+    fill: `hsla(${hue}, 80%, 62%, 0.2)`,
+    stroke: `hsla(${hue}, 90%, 72%, 0.95)`,
+    marker: `hsla(${hue}, 95%, 85%, 0.95)`,
+    occupiedFill: `hsla(${hue}, 86%, 68%, 0.32)`
+  };
 }
 
-function playerColor(nodeId) {
-  return ownerColor(nodeId, 1);
+function playerAccentVars(nodeId) {
+  const palette = ownerPalette(nodeId);
+  return `--player-accent:${palette.stroke};--player-accent-fill:${palette.fill};`;
 }
 
 function currentTileSize() {
@@ -123,6 +136,21 @@ function resourceEmoji(entity) {
   if (key === "crystal") return "\u{1F48E}";
   if (key === "food") return "\u{1F33E}";
   return "\u{2753}";
+}
+
+function resourceEmojiByKey(resource) {
+  return resourceEmoji({ type: resource, meta: { resource } });
+}
+
+function resourceLabel(resource) {
+  const key = String(resource || "").toLowerCase();
+  if (key === "wood") return "Wood";
+  if (key === "stone") return "Stone";
+  if (key === "iron") return "Iron";
+  if (key === "copper") return "Copper";
+  if (key === "crystal") return "Crystal";
+  if (key === "food") return "Food";
+  return key || "Resource";
 }
 
 function buildingEmoji(type) {
@@ -202,6 +230,17 @@ function formatIsoDate(iso) {
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return "n/a";
   return date.toLocaleString();
+}
+
+function renderResourceGrid(resources) {
+  const ordered = ["wood", "stone", "iron", "copper", "crystal", "food"];
+  return ordered.map((resource) => `
+    <div class="resource-pill">
+      <span class="resource-pill-emoji">${escapeHtml(resourceEmojiByKey(resource))}</span>
+      <span class="resource-pill-label">${escapeHtml(resourceLabel(resource))}</span>
+      <strong class="resource-pill-value">${escapeHtml(resources[resource] ?? 0)}</strong>
+    </div>
+  `).join("");
 }
 
 function getOpenedCellSet() {
@@ -289,6 +328,16 @@ function drawWorld() {
   const landClaims = world.landClaims && typeof world.landClaims === "object" ? world.landClaims : {};
   const buildingByCell = getBuildingByCell();
   const resources = getResourceEntities();
+  const playersByCell = new Map();
+
+  for (const player of state.players) {
+    if (!player || !player.position) continue;
+    const key = `${Number(player.position.x)},${Number(player.position.y)}`;
+    if (!playersByCell.has(key)) {
+      playersByCell.set(key, []);
+    }
+    playersByCell.get(key).push(player);
+  }
 
   canvas.width = Math.max(1, width * tile);
   canvas.height = Math.max(1, height * tile);
@@ -300,31 +349,75 @@ function drawWorld() {
     for (let x = 0; x < width; x += 1) {
       const key = `${x},${y}`;
       const tileData = world.map.tiles[key] || { terrain: "plain", blocked: false };
-      ctx.fillStyle = terrainColor(tileData.terrain);
+      const ownerNodeId = landClaims[key];
+      const ownerColors = ownerNodeId ? ownerPalette(ownerNodeId) : null;
+      const playersHere = playersByCell.get(key) || [];
+      const occupiedColors = playersHere.length ? ownerPalette(playersHere[0].nodeId) : null;
+
+      ctx.fillStyle = terrainColor(tileData.terrain, x, y);
       ctx.fillRect(x * tile, y * tile, tile, tile);
 
-      const ownerNodeId = landClaims[key];
-      if (ownerNodeId) {
-        ctx.fillStyle = ownerColor(ownerNodeId, 0.24);
+      if (ownerColors) {
+        ctx.fillStyle = ownerColors.fill;
         ctx.fillRect(x * tile + 1, y * tile + 1, tile - 2, tile - 2);
       }
 
+      if (occupiedColors) {
+        ctx.fillStyle = occupiedColors.occupiedFill;
+        ctx.fillRect(x * tile + 2, y * tile + 2, Math.max(1, tile - 4), Math.max(1, tile - 4));
+      }
+
       if (tileData.blocked && tileData.terrain !== "water") {
-        ctx.fillStyle = "rgba(130, 0, 0, 0.24)";
+        ctx.fillStyle = "rgba(145, 47, 47, 0.35)";
         ctx.fillRect(x * tile, y * tile, tile, tile);
       }
 
-      ctx.strokeStyle = "rgba(0,0,0,0.2)";
+      ctx.strokeStyle = "rgba(7, 17, 10, 0.45)";
       ctx.strokeRect(x * tile + 0.5, y * tile + 0.5, tile - 1, tile - 1);
+
+      if (ownerColors) {
+        const sameOwner = (nx, ny) => landClaims[`${nx},${ny}`] === ownerNodeId;
+        ctx.strokeStyle = ownerColors.stroke;
+        ctx.lineWidth = Math.max(1.2, tile * 0.08);
+        if (!sameOwner(x - 1, y)) {
+          ctx.beginPath();
+          ctx.moveTo(x * tile + 1, y * tile + 1);
+          ctx.lineTo(x * tile + 1, y * tile + tile - 1);
+          ctx.stroke();
+        }
+        if (!sameOwner(x + 1, y)) {
+          ctx.beginPath();
+          ctx.moveTo(x * tile + tile - 1, y * tile + 1);
+          ctx.lineTo(x * tile + tile - 1, y * tile + tile - 1);
+          ctx.stroke();
+        }
+        if (!sameOwner(x, y - 1)) {
+          ctx.beginPath();
+          ctx.moveTo(x * tile + 1, y * tile + 1);
+          ctx.lineTo(x * tile + tile - 1, y * tile + 1);
+          ctx.stroke();
+        }
+        if (!sameOwner(x, y + 1)) {
+          ctx.beginPath();
+          ctx.moveTo(x * tile + 1, y * tile + tile - 1);
+          ctx.lineTo(x * tile + tile - 1, y * tile + tile - 1);
+          ctx.stroke();
+        }
+        ctx.lineWidth = 1;
+      }
 
       const buildings = buildingByCell.get(key) || [];
       if (buildings.length) {
         const building = buildings[0];
-        ctx.font = `${Math.max(8, Math.round(tile * 0.58))}px sans-serif`;
+        ctx.font = `${Math.max(10, Math.round(tile * 0.56))}px sans-serif`;
         ctx.textAlign = "left";
         ctx.textBaseline = "bottom";
-        ctx.fillStyle = "#fff";
-        ctx.fillText(buildingEmoji(building.type), x * tile + 1, y * tile + tile - 1);
+        ctx.fillStyle = "rgba(255, 245, 220, 0.95)";
+        ctx.fillText(
+          buildingEmoji(building.type),
+          x * tile + Math.max(2, tile * 0.2),
+          y * tile + tile - Math.max(2, tile * 0.12)
+        );
       }
     }
   }
@@ -334,38 +427,103 @@ function drawWorld() {
       const x = Number(entity.x);
       const y = Number(entity.y);
       if (!Number.isInteger(x) || !Number.isInteger(y)) continue;
-      ctx.font = `${Math.max(8, Math.round(tile * 0.5))}px sans-serif`;
-      ctx.textAlign = "right";
-      ctx.textBaseline = "top";
+      ctx.font = `${Math.max(10, Math.round(tile * 0.58))}px sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
       ctx.fillStyle = "#fff";
-      ctx.fillText(resourceEmoji(entity), (x + 1) * tile - 1, y * tile + 1);
+      ctx.strokeStyle = "rgba(20, 20, 20, 0.85)";
+      ctx.lineWidth = Math.max(1, tile * 0.06);
+      ctx.strokeText(resourceEmoji(entity), x * tile + tile / 2, y * tile + tile / 2);
+      ctx.fillText(resourceEmoji(entity), x * tile + tile / 2, y * tile + tile / 2);
     }
   }
 
-  for (const player of state.players) {
-    if (!player.position) continue;
-    const px = Number(player.position.x);
-    const py = Number(player.position.y);
-    if (!Number.isInteger(px) || !Number.isInteger(py)) continue;
+  for (const [coordKey, playersHere] of playersByCell.entries()) {
+    const parsed = parseCoordKey(coordKey);
+    if (!parsed || !playersHere.length) continue;
+    const hoveredPlayer = playersHere.find((player) => player.nodeId === state.hoveredPlayerNodeId) || null;
+    const primaryPlayer = hoveredPlayer || playersHere[0];
+    const palette = ownerPalette(primaryPlayer.nodeId);
+    const avatar = primaryPlayer.avatar ? String(primaryPlayer.avatar) : "\u{1F9D1}";
+    const cx = parsed.x * tile + tile / 2;
+    const cy = parsed.y * tile + tile / 2;
+    const isHovered = primaryPlayer.nodeId === state.hoveredPlayerNodeId;
 
-    const cx = px * tile + tile / 2;
-    const cy = py * tile + tile / 2;
-
-    ctx.fillStyle = playerColor(player.nodeId);
-    ctx.beginPath();
-    ctx.arc(cx, cy, Math.max(4, tile * 0.3), 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = "#fff";
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    const avatar = player.avatar ? String(player.avatar) : "\u{1F9D1}";
-    ctx.font = `${Math.max(10, Math.round(tile * 0.75))}px sans-serif`;
+    ctx.save();
+    ctx.translate(cx, cy + Math.max(0, tile * 0.02));
+    if (isHovered) {
+      ctx.scale(2, 2);
+    }
+    ctx.font = `${Math.max(12, Math.round(tile * 0.92))}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillStyle = "#fff";
-    ctx.fillText(avatar, cx, cy + 0.5);
+    ctx.strokeStyle = palette.stroke;
+    ctx.lineWidth = Math.max(isHovered ? 1.2 : 1.4, tile * (isHovered ? 0.05 : 0.08));
+    ctx.strokeText(avatar, 0, 0);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.96)";
+    ctx.fillText(avatar, 0, 0);
+    ctx.restore();
+
+    if (playersHere.length > 1) {
+      ctx.textAlign = "start";
+      ctx.textBaseline = "alphabetic";
+      ctx.font = `${Math.max(8, Math.round(tile * 0.34))}px Consolas, monospace`;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(String(playersHere.length), parsed.x * tile + 2, parsed.y * tile + tile - 3);
+    }
+
+    const speakingPlayer = playersHere.find((player) => {
+      const bubble = player && player.gameState ? String(player.gameState.chatBubble || "") : "";
+      return bubble.trim().length > 0;
+    });
+    if (speakingPlayer) {
+      const rawBubble = String(speakingPlayer.gameState.chatBubble || "").trim().slice(0, 80);
+      const bubbleText = rawBubble.length > 26 ? `${rawBubble.slice(0, 26)}...` : rawBubble;
+      const bubbleFont = Math.max(9, Math.round(tile * 0.34));
+      const textWidth = ctx.measureText(bubbleText).width;
+      const bubblePadding = 4;
+      const bubbleWidth = Math.max(tile + 10, textWidth + bubblePadding * 2);
+      const bubbleHeight = bubbleFont + 7;
+      let bubbleX = Math.round(parsed.x * tile + tile / 2 - bubbleWidth / 2);
+      let bubbleY = parsed.y * tile - bubbleHeight - 5;
+
+      bubbleX = Math.max(2, Math.min(canvas.width - bubbleWidth - 2, bubbleX));
+      if (bubbleY < 2) {
+        bubbleY = parsed.y * tile + tile + 4;
+      }
+
+      ctx.textAlign = "start";
+      ctx.textBaseline = "alphabetic";
+      ctx.font = `${bubbleFont}px Consolas, monospace`;
+      ctx.fillStyle = "rgba(248, 237, 206, 0.92)";
+      ctx.fillRect(bubbleX, bubbleY, bubbleWidth, bubbleHeight);
+      ctx.strokeStyle = "rgba(120, 97, 51, 0.95)";
+      ctx.strokeRect(bubbleX + 0.5, bubbleY + 0.5, bubbleWidth - 1, bubbleHeight - 1);
+
+      const tailUp = bubbleY > parsed.y * tile;
+      ctx.beginPath();
+      if (tailUp) {
+        ctx.moveTo(parsed.x * tile + tile / 2 - 3, bubbleY);
+        ctx.lineTo(parsed.x * tile + tile / 2 + 3, bubbleY);
+        ctx.lineTo(parsed.x * tile + tile / 2, bubbleY - 5);
+      } else {
+        ctx.moveTo(parsed.x * tile + tile / 2 - 3, bubbleY + bubbleHeight);
+        ctx.lineTo(parsed.x * tile + tile / 2 + 3, bubbleY + bubbleHeight);
+        ctx.lineTo(parsed.x * tile + tile / 2, bubbleY + bubbleHeight + 5);
+      }
+      ctx.closePath();
+      ctx.fillStyle = "rgba(248, 237, 206, 0.92)";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(120, 97, 51, 0.95)";
+      ctx.stroke();
+
+      ctx.fillStyle = "#3a321d";
+      ctx.fillText(bubbleText, bubbleX + bubblePadding, bubbleY + bubbleHeight - 5);
+    }
   }
+
+  ctx.textAlign = "start";
+  ctx.textBaseline = "alphabetic";
 
   document.getElementById("map-title").textContent = world.name || "MAP";
 }
@@ -377,6 +535,22 @@ function centerMapOnCoord(x, y) {
   const targetY = Math.max(0, y * tile + tile / 2 - wrap.clientHeight / 2);
   wrap.scrollLeft = targetX;
   wrap.scrollTop = targetY;
+}
+
+function focusPlayerOnMap(player) {
+  if (!player || !player.position) {
+    return;
+  }
+  const x = Number(player.position.x);
+  const y = Number(player.position.y);
+  if (!Number.isInteger(x) || !Number.isInteger(y)) {
+    return;
+  }
+  const targetZoom = Math.max(view.zoom, 1.6);
+  if (targetZoom !== view.zoom) {
+    setZoom(targetZoom);
+  }
+  centerMapOnCoord(x, y);
 }
 
 function openPlayerModal(player) {
@@ -392,45 +566,47 @@ function openPlayerModal(player) {
 
   body.innerHTML = `
     <article class="player-card">
-      <div class="player-hero">
+      <div class="player-hero" style="${playerAccentVars(player.nodeId)}">
         <div class="player-avatar">${escapeHtml(player.avatar || "\u{1F9D1}")}</div>
-        <div>
-          <div class="player-name">${escapeHtml(player.shortName || "Unknown")}</div>
+        <div class="player-hero-copy">
+          <div class="player-name"><span class="owner-swatch"></span>${escapeHtml(player.shortName || "Unknown")}</div>
           <div class="player-node">${escapeHtml(player.nodeId || "n/a")}</div>
+          <div class="player-hero-tags">
+            <span class="player-tag">${escapeHtml(gameState.sessionActive ? "ACTIVE" : "PAUSED")}</span>
+            <span class="player-tag">${escapeHtml(player.registrationState || "unknown")}</span>
+            <span class="player-tag">${escapeHtml(gameState.districtName || gameState.cityName || "unnamed district")}</span>
+          </div>
         </div>
       </div>
       <div class="player-stats-grid">
-        <div class="player-stat-box"><span>Credits</span><strong>${escapeHtml(stats.credits ?? 0)}</strong></div>
-        <div class="player-stat-box"><span>Land</span><strong>${escapeHtml(claimedList.length)}</strong></div>
-        <div class="player-stat-box"><span>Land LV</span><strong>${escapeHtml(gameState.cityLevel ?? 1)}</strong></div>
-        <div class="player-stat-box"><span>Status</span><strong>${escapeHtml(gameState.sessionActive ? "ACTIVE" : "PAUSED")}</strong></div>
+        <div class="player-stat-box"><span>Credits</span><strong>${escapeHtml(stats.credits ?? 0)} CR</strong></div>
+        <div class="player-stat-box"><span>Land</span><strong>${escapeHtml(claimedList.length)} cells</strong></div>
+        <div class="player-stat-box"><span>District LV</span><strong>${escapeHtml(gameState.cityLevel ?? 1)}</strong></div>
+        <div class="player-stat-box"><span>Position</span><strong>${escapeHtml(position)}</strong></div>
       </div>
-      <div class="player-meta-grid">
-        <div><span>District</span><strong>${escapeHtml(gameState.districtName || gameState.cityName || "unnamed")}</strong></div>
-        <div><span>Position</span><strong>${escapeHtml(position)}</strong></div>
-        <div><span>Location</span><strong>${escapeHtml(gameState.location || "n/a")}</strong></div>
-        <div><span>Claims</span><strong>${escapeHtml(claimedList.join(" ") || "n/a")}</strong></div>
-        <div><span>Started</span><strong>${escapeHtml(formatIsoDate(gameState.startedAt))}</strong></div>
-        <div><span>Last Action</span><strong>${escapeHtml(formatIsoDate(gameState.lastActionAt))}</strong></div>
-        <div><span>State</span><strong>${escapeHtml(player.registrationState || "unknown")}</strong></div>
-        <div><span>Level / HP / XP</span><strong>${escapeHtml(stats.level ?? 0)} / ${escapeHtml(stats.hp ?? 0)} / ${escapeHtml(stats.xp ?? 0)}</strong></div>
+      <div class="player-card-grid">
+        <section class="player-panel">
+          <span class="panel-label">Profile</span>
+          <div class="player-meta-grid">
+            <div><span>District</span><strong>${escapeHtml(gameState.districtName || gameState.cityName || "unnamed")}</strong></div>
+            <div><span>Location</span><strong>${escapeHtml(gameState.location || "n/a")}</strong></div>
+            <div><span>Started</span><strong>${escapeHtml(formatIsoDate(gameState.startedAt))}</strong></div>
+            <div><span>Last Action</span><strong>${escapeHtml(formatIsoDate(gameState.lastActionAt))}</strong></div>
+            <div><span>Claims</span><strong>${escapeHtml(claimedList.join(" ") || "n/a")}</strong></div>
+          </div>
+        </section>
+        <section class="player-panel">
+          <span class="panel-label">Resources</span>
+          <div class="player-resource-grid">
+            ${renderResourceGrid(resources)}
+          </div>
+        </section>
       </div>
-      <div class="player-resource-block">
-        <span>Resources</span>
-        <div class="player-resource-grid">
-          <div>WOOD ${escapeHtml(resources.wood ?? 0)}</div>
-          <div>STONE ${escapeHtml(resources.stone ?? 0)}</div>
-          <div>IRON ${escapeHtml(resources.iron ?? 0)}</div>
-          <div>COPPER ${escapeHtml(resources.copper ?? 0)}</div>
-          <div>CRYSTAL ${escapeHtml(resources.crystal ?? 0)}</div>
-          <div>FOOD ${escapeHtml(resources.food ?? 0)}</div>
-        </div>
-      </div>
-      <div class="player-building-block">
-        <span>Buildings (${totalBuildings})</span>
+      <div class="player-panel">
+        <span class="panel-label">Buildings (${totalBuildings})</span>
         <div class="player-building-list">
           ${buildingEntries.length ? buildingEntries.map(([cell, list]) => (
-            `<button class="cell-jump-btn" data-coord="${escapeHtml(cell)}" type="button">${escapeHtml(cell)}: ${escapeHtml((Array.isArray(list) ? list : [list]).join(", "))}</button>`
+            `<button class="cell-jump-btn" data-coord="${escapeHtml(cell)}" type="button">${escapeHtml(cell)}: ${escapeHtml((Array.isArray(list) ? list : [list]).map((item) => `${buildingEmoji(item)} ${item}`).join(", "))}</button>`
           )).join("") : `<div class="player-building-empty">No buildings</div>`}
         </div>
       </div>
@@ -463,36 +639,53 @@ function openCellModal(x, y) {
 
   body.innerHTML = `
     <article class="cell-card">
-      <div class="cell-title">CELL [${x},${y}]</div>
-      <div class="cell-subtitle">${escapeHtml(tile.terrain)}${tile.blocked ? " / BLOCKED" : ""}</div>
-      <div class="cell-subtitle">${escapeHtml(locationLabel)}</div>
-      <div class="cell-info-grid">
-        <div><span>Owner</span><strong>${escapeHtml(ownerLabel)}</strong></div>
-        <div><span>HQ</span><strong>${isCityCore ? "yes" : "no"}</strong></div>
-      </div>
-      <div class="cell-section">
-        <span>Buildings</span>
-        <div class="cell-chip-row">
-          ${buildings.length ? buildings.map((building) => (
-            `<span class="cell-chip">${escapeHtml(buildingEmoji(building.type))} ${escapeHtml(building.type)}${building.playerName ? ` / ${escapeHtml(building.playerName)}` : ""}</span>`
-          )).join("") : `<span class="cell-empty">none</span>`}
+      <div class="cell-hero">
+        <div>
+          <div class="cell-title">CELL [${x},${y}]</div>
+          <div class="cell-subtitle">${escapeHtml(locationLabel)}</div>
+        </div>
+        <div class="cell-hero-tags">
+          <span class="cell-tag">${escapeHtml(tile.terrain)}</span>
+          ${tile.blocked ? `<span class="cell-tag danger">Blocked</span>` : ""}
+          ${isCityCore ? `<span class="cell-tag accent">HQ</span>` : ""}
         </div>
       </div>
-      <div class="cell-section">
-        <span>Players</span>
-        <div class="cell-chip-row">
-          ${players.length ? players.map((player) => (
-            `<button class="cell-player-link" data-node-id="${escapeHtml(player.nodeId)}" type="button">${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</button>`
-          )).join("") : `<span class="cell-empty">none</span>`}
-        </div>
+      <div class="cell-card-grid">
+        <section class="cell-section">
+          <span class="panel-label">Overview</span>
+          <div class="cell-info-grid">
+            <div><span>Owner</span><strong>${escapeHtml(ownerLabel)}</strong></div>
+            <div><span>District</span><strong>${escapeHtml(districtName || "none")}</strong></div>
+            <div><span>Landmark</span><strong>${escapeHtml(tile.label || "none")}</strong></div>
+            <div><span>Players Here</span><strong>${escapeHtml(players.length)}</strong></div>
+          </div>
+        </section>
+        <section class="cell-section">
+          <span class="panel-label">Buildings</span>
+          <div class="cell-chip-row">
+            ${buildings.length ? buildings.map((building) => (
+              `<span class="cell-chip">${escapeHtml(buildingEmoji(building.type))} ${escapeHtml(building.type)}${building.playerName ? ` / ${escapeHtml(building.playerName)}` : ""}</span>`
+            )).join("") : `<span class="cell-empty">none</span>`}
+          </div>
+        </section>
       </div>
-      <div class="cell-section">
-        <span>Entities</span>
-        <div class="cell-chip-row">
-          ${entities.length ? entities.map((entity) => (
-            `<span class="cell-chip">${escapeHtml(resourceEmoji(entity))} ${escapeHtml(entity.name || entity.type || "entity")}</span>`
-          )).join("") : `<span class="cell-empty">none</span>`}
-        </div>
+      <div class="cell-card-grid">
+        <section class="cell-section">
+          <span class="panel-label">Players</span>
+          <div class="cell-chip-row">
+            ${players.length ? players.map((player) => (
+              `<button class="cell-player-link" data-node-id="${escapeHtml(player.nodeId)}" type="button" style="${playerAccentVars(player.nodeId)}"><span class="owner-swatch"></span>${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</button>`
+            )).join("") : `<span class="cell-empty">none</span>`}
+          </div>
+        </section>
+        <section class="cell-section">
+          <span class="panel-label">Entities</span>
+          <div class="cell-chip-row">
+            ${entities.length ? entities.map((entity) => (
+              `<span class="cell-chip">${escapeHtml(resourceEmoji(entity))} ${escapeHtml(entity.name || entity.type || "entity")}</span>`
+            )).join("") : `<span class="cell-empty">none</span>`}
+          </div>
+        </section>
       </div>
     </article>
   `;
@@ -531,8 +724,8 @@ function renderPlayers() {
     .map((player) => {
       const pos = player.position ? `${player.position.x},${player.position.y}` : "-";
       return `
-        <tr class="player-row" data-node-id="${escapeHtml(player.nodeId || "")}">
-          <td class="player-name-cell">${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</td>
+        <tr class="player-row" data-node-id="${escapeHtml(player.nodeId || "")}" style="${playerAccentVars(player.nodeId)}">
+          <td class="player-name-cell"><span class="owner-swatch"></span>${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</td>
           <td>${escapeHtml(player.nodeId || "-")}</td>
           <td>${escapeHtml(pos)}</td>
           <td>${escapeHtml(player.stats.credits || 0)}</td>
@@ -542,10 +735,24 @@ function renderPlayers() {
     .join("");
 
   for (const row of body.querySelectorAll(".player-row")) {
+    row.addEventListener("mouseenter", () => {
+      const nodeId = row.getAttribute("data-node-id");
+      if (state.hoveredPlayerNodeId !== nodeId) {
+        state.hoveredPlayerNodeId = nodeId;
+        drawWorld();
+      }
+    });
+    row.addEventListener("mouseleave", () => {
+      if (state.hoveredPlayerNodeId) {
+        state.hoveredPlayerNodeId = null;
+        drawWorld();
+      }
+    });
     row.addEventListener("click", () => {
       const nodeId = row.getAttribute("data-node-id");
       const player = getPlayerByNodeId(nodeId);
       if (player) {
+        focusPlayerOnMap(player);
         openPlayerModal(player);
       }
     });

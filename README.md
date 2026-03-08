@@ -6,6 +6,8 @@ MESHCITY is a Meshtastic-powered persistent **TEXT-FIRST** strategy/survival gam
 Core gameplay works inside your local Meshtastic mesh network and can run **without internet access**.
 For convenience, a separate public web stack is also provided (backend + frontend website) for broadcast/observation.
 
+![MESHCITY gameplay](./game.png)
+
 ## Repository Layout
 
 This workspace now has three separate applications:

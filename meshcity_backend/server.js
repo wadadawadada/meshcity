@@ -222,6 +222,7 @@ function sanitizePlayers(players, world) {
         location: String(gameState.location || ""),
         cityName: String(gameState.cityName || ""),
         districtName: String(gameState.districtName || ""),
+        chatBubble: String(gameState.chatBubble || ""),
         cityLevel: Number(gameState.cityLevel || 1),
         claimedCellsCount: claimedCells.length,
         claimedCells: claimedCells.map((cell) => String(cell)),

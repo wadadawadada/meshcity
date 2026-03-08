@@ -6,35 +6,36 @@
       "registered": true,
       "registrationState": "registered",
       "createdAt": "2026-03-07T16:29:56.207Z",
-      "updatedAt": "2026-03-08T08:24:33.378Z",
+      "updatedAt": "2026-03-08T13:04:15.281Z",
       "stats": {
         "level": 1,
         "hp": 10,
         "xp": 0,
-        "credits": 490
+        "credits": 1118
       },
       "gameState": {
         "hasStarted": true,
         "sessionActive": true,
-        "location": "Sector 15:55",
+        "location": "Sector 16:57",
         "position": {
-          "x": 15,
-          "y": 55
+          "x": 16,
+          "y": 57
         },
         "resources": {
-          "wood": 8,
+          "wood": 584,
           "stone": 6,
           "iron": 0,
           "copper": 0,
           "crystal": 0,
-          "food": 4
+          "food": 196
         },
         "claimedCells": [
           "14,56",
           "14,57",
           "15,57",
           "15,56",
-          "14,55"
+          "14,55",
+          "16,57"
         ],
         "buildings": {
           "14,56": [
@@ -45,14 +46,455 @@
         "cityCore": "14,56",
         "cityName": "fortess",
         "districtName": "fortess",
-        "chatBubble": "",
+        "chatBubble": "hello",
         "awaitingHelpCategory": false,
         "awaitingDistrictName": false,
-        "lastActionAt": "2026-03-08T08:24:33.378Z",
+        "lastActionAt": "2026-03-08T11:31:44.106Z",
         "startedAt": "2026-03-07T16:30:37.050Z",
+        "migratedToMeshcity": true,
+        "lastEconomyTickAt": "2026-03-08T13:04:15.281Z"
+      },
+      "avatar": "🧑‍🦳",
+      "isBot": false,
+      "botProfile": null
+    },
+    {
+      "nodeId": "!1cfa8540",
+      "shortName": "Iorith",
+      "isBot": true,
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-08T12:44:39.638Z",
+      "updatedAt": "2026-03-08T13:04:15.281Z",
+      "botProfile": {
+        "pace": "slow",
+        "createdBy": "admin",
+        "createdAt": "2026-03-08T12:44:39.638Z"
+      },
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 318
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 46:25",
+        "position": {
+          "x": 46,
+          "y": 25
+        },
+        "resources": {
+          "wood": 47,
+          "stone": 41,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 871
+        },
+        "claimedCells": [
+          "39,24",
+          "40,24",
+          "41,24",
+          "42,24",
+          "43,24",
+          "44,24",
+          "45,24",
+          "46,24",
+          "47,24",
+          "47,25",
+          "46,25"
+        ],
+        "buildings": {
+          "39,24": [
+            "shop",
+            "farm",
+            "farm"
+          ],
+          "40,24": [
+            "farm",
+            "farm"
+          ],
+          "41,24": [
+            "farm",
+            "farm"
+          ]
+        },
+        "cityLevel": 3,
+        "cityCore": "39,24",
+        "cityName": "Iorith 540",
+        "districtName": "Iorith 540",
+        "chatBubble": "slow and steady",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-08T13:04:07.374Z",
+        "startedAt": "2026-03-08T12:44:40.028Z",
+        "migratedToMeshcity": true,
+        "lastEconomyTickAt": "2026-03-08T13:04:15.281Z"
+      },
+      "avatar": "🧑‍🦰"
+    },
+    {
+      "nodeId": "!b53a27d5",
+      "shortName": "Iokeis",
+      "isBot": true,
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-08T12:44:46.297Z",
+      "updatedAt": "2026-03-08T13:04:15.281Z",
+      "botProfile": {
+        "pace": "slow",
+        "createdBy": "admin",
+        "createdAt": "2026-03-08T12:44:46.297Z"
+      },
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 409
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 14:9",
+        "position": {
+          "x": 14,
+          "y": 9
+        },
+        "resources": {
+          "wood": 66,
+          "stone": 78,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 291
+        },
+        "claimedCells": [
+          "12,8",
+          "13,8",
+          "14,8",
+          "15,8",
+          "16,8",
+          "17,8",
+          "18,8",
+          "19,8",
+          "18,9",
+          "17,9",
+          "16,9",
+          "15,9",
+          "14,9"
+        ],
+        "buildings": {
+          "12,8": [
+            "shop",
+            "hall"
+          ],
+          "13,8": [
+            "farm"
+          ]
+        },
+        "cityLevel": 4,
+        "cityCore": "12,8",
+        "cityName": "Iokeis 7D5",
+        "districtName": "Iokeis 7D5",
+        "chatBubble": "route update",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-08T13:04:11.332Z",
+        "startedAt": "2026-03-08T12:44:46.614Z",
+        "migratedToMeshcity": true,
+        "lastEconomyTickAt": "2026-03-08T13:04:15.281Z"
+      },
+      "avatar": "🧑"
+    },
+    {
+      "nodeId": "!ae4e87a4",
+      "shortName": "Razuen",
+      "isBot": true,
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-08T12:44:48.041Z",
+      "updatedAt": "2026-03-08T13:04:15.281Z",
+      "botProfile": {
+        "pace": "slow",
+        "createdBy": "admin",
+        "createdAt": "2026-03-08T12:44:48.041Z"
+      },
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 296
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 56:18",
+        "position": {
+          "x": 56,
+          "y": 18
+        },
+        "resources": {
+          "wood": 44,
+          "stone": 57,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 613
+        },
+        "claimedCells": [
+          "58,17",
+          "59,17",
+          "60,17",
+          "61,17",
+          "61,18",
+          "60,18",
+          "59,18",
+          "58,18",
+          "57,18",
+          "57,17",
+          "56,17",
+          "56,18"
+        ],
+        "buildings": {
+          "58,17": [
+            "shop",
+            "farm",
+            "farm"
+          ],
+          "59,17": [
+            "farm",
+            "farm"
+          ]
+        },
+        "cityLevel": 3,
+        "cityCore": "58,17",
+        "cityName": "Razuen 7A4",
+        "districtName": "Razuen 7A4",
+        "chatBubble": "market scan online",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-08T13:04:11.503Z",
+        "startedAt": "2026-03-08T12:44:48.345Z",
+        "migratedToMeshcity": true,
+        "lastEconomyTickAt": "2026-03-08T13:04:15.281Z"
+      },
+      "avatar": "🧑‍🦲"
+    },
+    {
+      "nodeId": "!eed83988",
+      "shortName": "Nasos",
+      "isBot": true,
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-08T12:44:49.449Z",
+      "updatedAt": "2026-03-08T13:04:15.421Z",
+      "botProfile": {
+        "pace": "slow",
+        "createdBy": "admin",
+        "createdAt": "2026-03-08T12:44:49.449Z"
+      },
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 216
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 19:34",
+        "position": {
+          "x": 19,
+          "y": 34
+        },
+        "resources": {
+          "wood": 50,
+          "stone": 47,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 511
+        },
+        "claimedCells": [
+          "10,33",
+          "11,33",
+          "12,33",
+          "13,33",
+          "14,33",
+          "15,33",
+          "16,33",
+          "17,33",
+          "18,33",
+          "19,33",
+          "20,33",
+          "20,34",
+          "19,34"
+        ],
+        "buildings": {
+          "10,33": [
+            "shop",
+            "farm",
+            "farm"
+          ],
+          "11,33": [
+            "farm",
+            "farm"
+          ]
+        },
+        "cityLevel": 4,
+        "cityCore": "10,33",
+        "cityName": "Nasos 988",
+        "districtName": "Nasos 988",
+        "chatBubble": "slow and steady",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-08T13:04:15.421Z",
+        "startedAt": "2026-03-08T12:44:49.775Z",
+        "migratedToMeshcity": true
+      },
+      "avatar": "🧑"
+    },
+    {
+      "nodeId": "!0ca66c78",
+      "shortName": "Cakean",
+      "isBot": true,
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-08T12:44:50.637Z",
+      "updatedAt": "2026-03-08T13:04:15.562Z",
+      "botProfile": {
+        "pace": "slow",
+        "createdBy": "admin",
+        "createdAt": "2026-03-08T12:44:50.637Z"
+      },
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 393
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 31:62",
+        "position": {
+          "x": 31,
+          "y": 62
+        },
+        "resources": {
+          "wood": 433,
+          "stone": 64,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 247
+        },
+        "claimedCells": [
+          "22,62",
+          "23,62",
+          "24,62",
+          "25,62",
+          "26,62",
+          "27,62",
+          "28,62",
+          "29,62",
+          "30,62",
+          "31,62"
+        ],
+        "buildings": {
+          "23,62": [
+            "shop",
+            "farm"
+          ],
+          "22,62": [
+            "mill",
+            "mill",
+            "mill"
+          ]
+        },
+        "cityLevel": 3,
+        "cityCore": "22,62",
+        "cityName": "Cakean C78",
+        "districtName": "Cakean C78",
+        "chatBubble": "claiming new ground",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-08T13:04:15.562Z",
+        "startedAt": "2026-03-08T12:44:50.961Z",
         "migratedToMeshcity": true
       },
       "avatar": "🧑‍🦳"
+    },
+    {
+      "nodeId": "!ffa2ace3",
+      "shortName": "Gael",
+      "isBot": true,
+      "registered": true,
+      "registrationState": "registered",
+      "createdAt": "2026-03-08T12:44:52.704Z",
+      "updatedAt": "2026-03-08T13:04:15.281Z",
+      "botProfile": {
+        "pace": "slow",
+        "createdBy": "admin",
+        "createdAt": "2026-03-08T12:44:52.704Z"
+      },
+      "stats": {
+        "level": 1,
+        "hp": 10,
+        "xp": 0,
+        "credits": 426
+      },
+      "gameState": {
+        "hasStarted": true,
+        "sessionActive": true,
+        "location": "Sector 5:32",
+        "position": {
+          "x": 5,
+          "y": 32
+        },
+        "resources": {
+          "wood": 55,
+          "stone": 47,
+          "iron": 0,
+          "copper": 0,
+          "crystal": 0,
+          "food": 436
+        },
+        "claimedCells": [
+          "4,33",
+          "5,33",
+          "6,33",
+          "7,33",
+          "8,33",
+          "9,33",
+          "9,32",
+          "8,32",
+          "7,32",
+          "6,32",
+          "5,32"
+        ],
+        "buildings": {
+          "4,33": [
+            "shop",
+            "farm",
+            "farm"
+          ]
+        },
+        "cityLevel": 3,
+        "cityCore": "4,33",
+        "cityName": "Gael CE3",
+        "districtName": "Gael CE3",
+        "chatBubble": "route update",
+        "awaitingHelpCategory": false,
+        "awaitingDistrictName": false,
+        "lastActionAt": "2026-03-08T13:04:11.630Z",
+        "startedAt": "2026-03-08T12:44:53.041Z",
+        "migratedToMeshcity": true,
+        "lastEconomyTickAt": "2026-03-08T13:04:15.281Z"
+      },
+      "avatar": "🧑‍🦰"
     }
   ]
 }

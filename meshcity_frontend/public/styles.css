@@ -222,14 +222,27 @@ th {
 
 .player-row {
   cursor: pointer;
+  box-shadow: inset 3px 0 0 var(--player-accent, transparent);
+  background: linear-gradient(90deg, var(--player-accent-fill, transparent), transparent 55%);
 }
 
 .player-row:hover {
-  background: #d3d3d3;
+  background: linear-gradient(90deg, var(--player-accent-fill, rgba(211, 211, 211, 0.4)), #d3d3d3 70%);
 }
 
 .player-name-cell {
   white-space: nowrap;
+}
+
+.owner-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  vertical-align: middle;
+  border: 1px solid #555;
+  background: var(--player-accent, #999);
+  box-shadow: inset 0 0 0 1px var(--player-accent-fill, rgba(255, 255, 255, 0.3));
 }
 
 .logs-body {
@@ -279,8 +292,8 @@ th {
 }
 
 .modal-card {
-  width: min(520px, 100%);
-  max-height: min(90vh, 900px);
+  width: min(560px, 100%);
+  max-height: min(84vh, 820px);
   overflow: auto;
   border: 2px solid var(--line-mid);
   border-top-color: var(--line-light);
@@ -295,37 +308,43 @@ th {
 }
 
 .modal-body {
-  padding: 10px;
+  padding: 8px;
   background: var(--panel-2);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .player-card {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .cell-card {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .player-hero {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
-  padding: 8px;
+  padding: 6px 7px;
   border: 1px solid #8f8f8f;
-  background: #efefef;
+  background: linear-gradient(90deg, var(--player-accent-fill, #efefef), #efefef 68%);
+  box-shadow: inset 4px 0 0 var(--player-accent, transparent);
+}
+
+.player-hero-copy {
+  display: grid;
+  gap: 4px;
 }
 
 .player-avatar {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-  font-size: 24px;
+  font-size: 20px;
   border: 1px solid #8f8f8f;
   background: #fff;
 }
@@ -336,38 +355,83 @@ th {
 }
 
 .player-name {
-  font-size: 14px;
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.cell-title {
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.player-hero-tags,
+.cell-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.player-tag,
+.cell-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 19px;
+  padding: 2px 6px;
+  border: 1px solid #7e7e7e;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.cell-tag.accent {
+  background: #d9f5df;
+  color: #184425;
+}
+
+.cell-tag.danger {
+  background: #f4d8d8;
+  color: #6a1f1f;
+}
+
+.player-name .owner-swatch,
+.cell-player-link .owner-swatch {
+  margin-right: 8px;
 }
 
 .player-node,
 .cell-subtitle {
   color: #333;
+  font-size: 10px;
+  line-height: 1.3;
 }
 
 .player-stats-grid,
-.player-resource-grid,
 .player-meta-grid,
 .cell-info-grid {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .player-stats-grid,
-.player-resource-grid,
 .cell-info-grid {
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+}
+
+.player-card-grid,
+.cell-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
 }
 
 .player-meta-grid {
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
 }
 
 .player-stat-box,
 .player-meta-grid > div,
-.player-resource-grid > div,
 .cell-info-grid > div,
-.player-resource-block,
-.player-building-block,
+.player-panel,
 .cell-section {
   border: 1px solid #8f8f8f;
   background: #efefef;
@@ -375,41 +439,71 @@ th {
 
 .player-stat-box,
 .player-meta-grid > div,
-.player-resource-grid > div,
 .cell-info-grid > div {
-  padding: 8px;
+  padding: 6px 7px;
 }
 
-.player-resource-block,
-.player-building-block,
+.player-panel,
 .cell-section {
-  padding: 8px;
+  padding: 6px 7px;
 }
 
 .player-stat-box span,
 .player-meta-grid span,
-.player-resource-block > span,
-.player-building-block > span,
+.panel-label,
 .cell-info-grid span,
 .cell-section > span {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   color: #444;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 9px;
+  line-height: 1.2;
 }
 
 .player-stat-box strong,
 .player-meta-grid strong,
 .cell-info-grid strong {
-  font-size: 15px;
+  font-size: 12px;
+  line-height: 1.3;
 }
 
 .player-building-list,
 .cell-chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+}
+
+.player-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 6px;
+}
+
+.resource-pill {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 7px;
+  border: 1px solid #8f8f8f;
+  background: #fff;
+}
+
+.resource-pill-emoji {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.resource-pill-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.resource-pill-value {
+  font-size: 12px;
 }
 
 .cell-jump-btn,
@@ -419,7 +513,9 @@ th {
   background: #fff;
   color: #111;
   font: inherit;
-  padding: 6px 8px;
+  padding: 4px 6px;
+  font-size: 11px;
+  line-height: 1.25;
 }
 
 .cell-jump-btn,
@@ -427,9 +523,25 @@ th {
   cursor: pointer;
 }
 
+.cell-player-link {
+  background: linear-gradient(90deg, var(--player-accent-fill, #fff), #fff 72%);
+  box-shadow: inset 3px 0 0 var(--player-accent, transparent);
+}
+
+.cell-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: start;
+  padding: 6px 7px;
+  border: 1px solid #8f8f8f;
+  background: #efefef;
+}
+
 .cell-empty,
 .player-building-empty {
   color: #555;
+  font-size: 11px;
 }
 
 .help-modal-body {
@@ -444,6 +556,10 @@ th {
   border: 1px solid #8f8f8f;
   background: #efefef;
   padding: 8px;
+}
+
+.help-section-wide {
+  grid-column: 1 / -1;
 }
 
 .help-section h4 {
@@ -464,6 +580,17 @@ th {
 
 .help-section code {
   font-family: Consolas, "Lucida Console", monospace;
+}
+
+.help-node-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid #8f8f8f;
+  background: #d8ead3;
+  color: #173b19;
+  font-family: "Press Start 2P", Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 @media (max-width: 1100px) {
@@ -527,6 +654,12 @@ th {
   }
 
   .help-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .player-card-grid,
+  .cell-card-grid,
+  .cell-hero {
     grid-template-columns: 1fr;
   }
 

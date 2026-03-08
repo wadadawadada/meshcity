@@ -214,11 +214,31 @@ function renderPorts(ports, currentPort) {
 function renderDevice(device) {
   const statusNode = document.getElementById("device-status");
   const metaNode = document.getElementById("device-meta");
+  const connectBtn = document.getElementById("connect-btn");
+  const disconnectBtn = document.getElementById("disconnect-btn");
+  const status = String(device.status || "disconnected").toLowerCase();
 
-  statusNode.textContent = String(device.status || "offline").toUpperCase();
-  statusNode.className = `status-badge ${device.status}`;
+  statusNode.textContent = status.toUpperCase();
+  statusNode.className = `status-badge ${status}`;
   if (metaNode) {
     metaNode.textContent = "";
+  }
+
+  if (connectBtn) {
+    connectBtn.className = status === "connected"
+      ? "device-state-btn connected"
+      : status === "connecting"
+        ? "device-state-btn connecting"
+        : "device-state-btn disconnected";
+    connectBtn.textContent = status === "connected"
+      ? "CONNECTED"
+      : status === "connecting"
+        ? "CONNECTING"
+        : "CONNECT";
+  }
+
+  if (disconnectBtn) {
+    disconnectBtn.disabled = status !== "connected" && status !== "connecting";
   }
 }
 
@@ -266,7 +286,6 @@ function renderPlayers(players) {
           <th>#</th>
           <th>COLOR</th>
           <th>PLAYER</th>
-          <th>STATE</th>
           <th>POS</th>
           <th>LAND</th>
           <th>LAND LV</th>
@@ -284,8 +303,6 @@ function renderPlayers(players) {
       declined: "DECLINED",
       registered: "ACTIVE"
     };
-    const stateLabel = stateLabelByKey[stateRaw] || stateRaw.toUpperCase();
-    const statusLabel = player.registered ? "ACTIVE" : stateLabel;
     const pos = player.position ? `${player.position.x},${player.position.y}` : "n/a";
     const stats = player.stats || {};
     const gameState = player.gameState || {};
@@ -299,11 +316,9 @@ function renderPlayers(players) {
       <tr class="players-table-row ${player.registered ? "is-registered" : "is-pending"}">
         <td class="player-rank">${index + 1}</td>
         <td><span class="owner-swatch" style="${swatchStyle}" title="Map color for ${escapeHtml(player.shortName)}"></span></td>
-        <td class="leaderboard-player">
-          <button class="player-open-btn player-name" data-node-id="${escapeHtml(player.nodeId)}" type="button">${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName)}</button>
-          <span class="player-node">${escapeHtml(player.nodeId)}</span>
+        <td class="leaderboard-player player-open-cell" data-node-id="${escapeHtml(player.nodeId)}" title="${escapeHtml(`${player.shortName} (${player.nodeId})`)}">
+          <span class="player-name-label">${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName)}</span>
         </td>
-        <td class="leaderboard-state">${escapeHtml(statusLabel)}</td>
         <td class="leaderboard-pos">${escapeHtml(pos)}</td>
         <td>${escapeHtml(land)}</td>
         <td>${escapeHtml(city)}</td>
@@ -328,7 +343,7 @@ function renderPlayers(players) {
     });
   }
 
-  for (const button of root.querySelectorAll(".player-open-btn")) {
+  for (const button of root.querySelectorAll(".player-open-cell")) {
     button.addEventListener("click", () => {
       const nodeId = button.getAttribute("data-node-id");
       if (!nodeId) return;
@@ -443,9 +458,10 @@ function openPlayerModal(nodeId) {
         <div class="player-stat-card"><span>CREDITS</span><strong>${escapeHtml(stats.credits ?? 0)}</strong></div>
         <div class="player-stat-card"><span>LAND</span><strong>${escapeHtml(claimedCells.length)}</strong></div>
         <div class="player-stat-card"><span>LAND LV</span><strong>${escapeHtml(gameState.cityLevel ?? 1)}</strong></div>
-        <div class="player-stat-card"><span>STATUS</span><strong>${escapeHtml(gameState.sessionActive ? "ACTIVE" : "PAUSED")}</strong></div>
+        <div class="player-stat-card"><span>STATUS</span><strong>${escapeHtml(player.isBot ? (gameState.sessionActive ? "BOT ACTIVE" : "BOT PAUSED") : (gameState.sessionActive ? "ACTIVE" : "PAUSED"))}</strong></div>
       </div>
       <div class="player-modal-meta">
+        <div><span>TYPE</span><strong>${escapeHtml(player.isBot ? "bot" : "user")}</strong></div>
         <div><span>DISTRICT</span><strong>${escapeHtml(gameState.districtName || "unnamed")}</strong></div>
         <div><span>POSITION</span><strong>${escapeHtml(position)}</strong></div>
         <div><span>LOCATION</span><strong>${escapeHtml(gameState.location || "n/a")}</strong></div>
@@ -1163,6 +1179,10 @@ async function main() {
 
   document.getElementById("export-players-btn").addEventListener("click", async () => {
     window.location.href = "/api/export/players";
+  });
+  document.getElementById("add-bot-btn").addEventListener("click", async () => {
+    await request("/api/players/bot", { method: "POST" });
+    await refresh();
   });
 
   document.getElementById("resize-map-btn").addEventListener("click", async () => {
