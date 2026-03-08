@@ -1,78 +1,6 @@
 {
   "logs": [
     {
-      "id": "log_1772974694624_50df17",
-      "timestamp": "2026-03-08T12:58:14.624Z",
-      "scope": "bot",
-      "message": "Iorith: claim 46 24"
-    },
-    {
-      "id": "log_1772974694764_dfc6d5",
-      "timestamp": "2026-03-08T12:58:14.764Z",
-      "scope": "tx",
-      "message": "DM queued to !1cfa8540: Claimed 46,24 for 160 CR. Expand only from adjacent tiles."
-    },
-    {
-      "id": "log_1772974694803_924a5e",
-      "timestamp": "2026-03-08T12:58:14.803Z",
-      "scope": "bot",
-      "message": "Razuen: harvest 58 18"
-    },
-    {
-      "id": "log_1772974694897_22be59",
-      "timestamp": "2026-03-08T12:58:14.897Z",
-      "scope": "tx",
-      "message": "DM queued to !ae4e87a4: Harvested 58,18 (town). CR +3, Food +4, Wood +2, Stone +1."
-    },
-    {
-      "id": "log_1772974698602_0be834",
-      "timestamp": "2026-03-08T12:58:18.602Z",
-      "scope": "bot",
-      "message": "Nasos: harvest 18 33"
-    },
-    {
-      "id": "log_1772974698695_59af13",
-      "timestamp": "2026-03-08T12:58:18.695Z",
-      "scope": "tx",
-      "message": "DM queued to !eed83988: Harvested 18,33 (town). CR +3, Food +4, Wood +1, Stone +2."
-    },
-    {
-      "id": "log_1772974702608_0c1fe2",
-      "timestamp": "2026-03-08T12:58:22.608Z",
-      "scope": "bot",
-      "message": "Cakean: build farm 23 62"
-    },
-    {
-      "id": "log_1772974702704_7ad5d4",
-      "timestamp": "2026-03-08T12:58:22.704Z",
-      "scope": "tx",
-      "message": "DM queued to !0ca66c78: Farm built at 23,62. Slots 2/2."
-    },
-    {
-      "id": "log_1772974702739_6aff2e",
-      "timestamp": "2026-03-08T12:58:22.739Z",
-      "scope": "bot",
-      "message": "Gael: trade sell wood 8 7"
-    },
-    {
-      "id": "log_1772974702879_f45a73",
-      "timestamp": "2026-03-08T12:58:22.879Z",
-      "scope": "tx",
-      "message": "DM queued to !ffa2ace3: Offer ORD03ND9 created."
-    },
-    {
-      "id": "log_1772974710636_fef3e9",
-      "timestamp": "2026-03-08T12:58:30.636Z",
-      "scope": "bot",
-      "message": "Iorith: harvest 46 24"
-    },
-    {
-      "id": "log_1772974710731_06d2f7",
-      "timestamp": "2026-03-08T12:58:30.731Z",
-      "scope": "tx",
-      "message": "DM queued to !1cfa8540: Harvested 46,24 (town). CR +3, Food +2, Wood +2, Stone +1."
-    },
-    {
       "id": "log_1772974710766_b39572",
       "timestamp": "2026-03-08T12:58:30.766Z",
       "scope": "bot",
@@ -1799,6 +1727,78 @@
       "timestamp": "2026-03-08T13:04:35.602Z",
       "scope": "tx",
       "message": "DM queued to !ae4e87a4: Harvested 56,18 (town). CR +3, Food +4, Wood +1, Stone +2."
+    },
+    {
+      "id": "log_1772975083369_0cbf2c",
+      "timestamp": "2026-03-08T13:04:43.369Z",
+      "scope": "bot",
+      "message": "Iokeis: harvest 14 9"
+    },
+    {
+      "id": "log_1772975083466_36e181",
+      "timestamp": "2026-03-08T13:04:43.466Z",
+      "scope": "tx",
+      "message": "DM queued to !b53a27d5: Harvested 14,9 (town). CR +3, Food +2, Wood +1, Stone +2."
+    },
+    {
+      "id": "log_1772975083497_9625a2",
+      "timestamp": "2026-03-08T13:04:43.497Z",
+      "scope": "bot",
+      "message": "Nasos: harvest 19 34"
+    },
+    {
+      "id": "log_1772975083589_2f73e0",
+      "timestamp": "2026-03-08T13:04:43.589Z",
+      "scope": "tx",
+      "message": "DM queued to !eed83988: Harvested 19,34 (town). CR +3, Food +3, Wood +2, Stone +2."
+    },
+    {
+      "id": "log_1772975087379_a28a7d",
+      "timestamp": "2026-03-08T13:04:47.379Z",
+      "scope": "bot",
+      "message": "Iorith: harvest 46 25"
+    },
+    {
+      "id": "log_1772975087473_7eb97d",
+      "timestamp": "2026-03-08T13:04:47.473Z",
+      "scope": "tx",
+      "message": "DM queued to !1cfa8540: Harvested 46,25 (town). CR +3, Food +2, Wood +1, Stone +2."
+    },
+    {
+      "id": "log_1772975087506_946a9e",
+      "timestamp": "2026-03-08T13:04:47.506Z",
+      "scope": "bot",
+      "message": "Razuen: harvest 56 18"
+    },
+    {
+      "id": "log_1772975087602_df1331",
+      "timestamp": "2026-03-08T13:04:47.602Z",
+      "scope": "tx",
+      "message": "DM queued to !ae4e87a4: Harvested 56,18 (town). CR +3, Food +4, Wood +2, Stone +2."
+    },
+    {
+      "id": "log_1772975087634_837ad2",
+      "timestamp": "2026-03-08T13:04:47.634Z",
+      "scope": "bot",
+      "message": "Cakean: move e"
+    },
+    {
+      "id": "log_1772975087783_827584",
+      "timestamp": "2026-03-08T13:04:47.783Z",
+      "scope": "tx",
+      "message": "DM queued to !0ca66c78: Moved to [32,62] (town)."
+    },
+    {
+      "id": "log_1772975087817_c6a415",
+      "timestamp": "2026-03-08T13:04:47.817Z",
+      "scope": "bot",
+      "message": "Gael: harvest 5 32"
+    },
+    {
+      "id": "log_1772975087910_34df00",
+      "timestamp": "2026-03-08T13:04:47.910Z",
+      "scope": "tx",
+      "message": "DM queued to !ffa2ace3: Harvested 5,32 (plain). CR +2, Food +5, Wood +1, Stone +0."
     }
   ]
 }
