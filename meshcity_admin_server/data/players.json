@@ -65,7 +65,7 @@
       "registered": true,
       "registrationState": "registered",
       "createdAt": "2026-03-08T12:44:39.638Z",
-      "updatedAt": "2026-03-08T13:04:55.379Z",
+      "updatedAt": "2026-03-08T13:05:03.455Z",
       "botProfile": {
         "pace": "slow",
         "createdBy": "admin",
@@ -75,7 +75,7 @@
         "level": 1,
         "hp": 10,
         "xp": 0,
-        "credits": 405
+        "credits": 408
       },
       "gameState": {
         "hasStarted": true,
@@ -86,12 +86,12 @@
           "y": 25
         },
         "resources": {
-          "wood": 50,
-          "stone": 47,
+          "wood": 51,
+          "stone": 49,
           "iron": 0,
           "copper": 0,
           "crystal": 0,
-          "food": 919
+          "food": 922
         },
         "claimedCells": [
           "39,24",
@@ -128,10 +128,9 @@
         "chatBubble": "slow and steady",
         "awaitingHelpCategory": false,
         "awaitingDistrictName": false,
-        "lastActionAt": "2026-03-08T13:04:47.428Z",
+        "lastActionAt": "2026-03-08T13:05:03.455Z",
         "startedAt": "2026-03-08T12:44:40.028Z",
-        "migratedToMeshcity": true,
-        "lastEconomyTickAt": "2026-03-08T13:04:55.379Z"
+        "migratedToMeshcity": true
       },
       "avatar": "🧑‍🦰"
     },
@@ -214,7 +213,7 @@
       "registered": true,
       "registrationState": "registered",
       "createdAt": "2026-03-08T12:44:48.041Z",
-      "updatedAt": "2026-03-08T13:04:55.379Z",
+      "updatedAt": "2026-03-08T13:05:03.581Z",
       "botProfile": {
         "pace": "slow",
         "createdBy": "admin",
@@ -224,7 +223,7 @@
         "level": 1,
         "hp": 10,
         "xp": 0,
-        "credits": 385
+        "credits": 388
       },
       "gameState": {
         "hasStarted": true,
@@ -235,12 +234,12 @@
           "y": 18
         },
         "resources": {
-          "wood": 49,
-          "stone": 63,
+          "wood": 51,
+          "stone": 64,
           "iron": 0,
           "copper": 0,
           "crystal": 0,
-          "food": 653
+          "food": 657
         },
         "claimedCells": [
           "58,17",
@@ -274,10 +273,9 @@
         "chatBubble": "market scan online",
         "awaitingHelpCategory": false,
         "awaitingDistrictName": false,
-        "lastActionAt": "2026-03-08T13:04:47.553Z",
+        "lastActionAt": "2026-03-08T13:05:03.581Z",
         "startedAt": "2026-03-08T12:44:48.345Z",
-        "migratedToMeshcity": true,
-        "lastEconomyTickAt": "2026-03-08T13:04:55.379Z"
+        "migratedToMeshcity": true
       },
       "avatar": "🧑‍🦲"
     },
@@ -362,7 +360,7 @@
       "registered": true,
       "registrationState": "registered",
       "createdAt": "2026-03-08T12:44:50.637Z",
-      "updatedAt": "2026-03-08T13:04:55.379Z",
+      "updatedAt": "2026-03-08T13:04:59.481Z",
       "botProfile": {
         "pace": "slow",
         "createdBy": "admin",
@@ -372,7 +370,7 @@
         "level": 1,
         "hp": 10,
         "xp": 0,
-        "credits": 458
+        "credits": 268
       },
       "gameState": {
         "hasStarted": true,
@@ -400,7 +398,8 @@
           "28,62",
           "29,62",
           "30,62",
-          "31,62"
+          "31,62",
+          "32,62"
         ],
         "buildings": {
           "23,62": [
@@ -420,10 +419,9 @@
         "chatBubble": "claiming new ground",
         "awaitingHelpCategory": false,
         "awaitingDistrictName": false,
-        "lastActionAt": "2026-03-08T13:04:47.738Z",
+        "lastActionAt": "2026-03-08T13:04:59.481Z",
         "startedAt": "2026-03-08T12:44:50.961Z",
-        "migratedToMeshcity": true,
-        "lastEconomyTickAt": "2026-03-08T13:04:55.379Z"
+        "migratedToMeshcity": true
       },
       "avatar": "🧑‍🦳"
     },
