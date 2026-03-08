@@ -40,10 +40,13 @@ const POLL_INTERVAL_MS = Math.max(300, Number(process.env.POLL_INTERVAL_MS || 10
 const MAX_LOGS = Math.max(20, Number(process.env.MAX_LOGS || 120));
 const FRONTEND_ORIGIN = String(process.env.FRONTEND_ORIGIN || "*");
 const SOURCE_DATA_DIR = path.resolve(process.cwd(), process.env.SOURCE_DATA_DIR || "../data");
+const ADMIN_SYNC_TOKEN = String(process.env.ADMIN_SYNC_TOKEN || "");
+const ADMIN_ONLINE_TTL_MS = Math.max(5000, Number(process.env.ADMIN_ONLINE_TTL_MS || 15000));
 
 const WORLD_FILE = path.join(SOURCE_DATA_DIR, "world.json");
 const PLAYERS_FILE = path.join(SOURCE_DATA_DIR, "players.json");
 const LOGS_FILE = path.join(SOURCE_DATA_DIR, "logs.json");
+const ADMIN_STATE_FILE = path.join(SOURCE_DATA_DIR, "admin_state.json");
 
 const sseClients = new Set();
 let cache = {
@@ -62,8 +65,34 @@ function safeReadJson(filePath, fallback) {
   }
 }
 
+function writeJson(filePath, payload) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), "utf8");
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let raw = "";
+    req.on("data", (chunk) => {
+      raw += chunk;
+    });
+    req.on("end", () => {
+      if (!raw.trim()) {
+        resolve({});
+        return;
+      }
+      try {
+        resolve(JSON.parse(raw));
+      } catch (error) {
+        reject(new Error("Invalid JSON body"));
+      }
+    });
+    req.on("error", reject);
+  });
+}
+
 function getFilesSignature() {
-  const files = [WORLD_FILE, PLAYERS_FILE, LOGS_FILE];
+  const files = [WORLD_FILE, PLAYERS_FILE, LOGS_FILE, ADMIN_STATE_FILE];
   return files.map((filePath) => {
     try {
       const stat = fs.statSync(filePath);
@@ -72,6 +101,17 @@ function getFilesSignature() {
       return `${filePath}:missing`;
     }
   }).join("|");
+}
+
+function readAdminState() {
+  const payload = safeReadJson(ADMIN_STATE_FILE, {});
+  const lastSeenAt = payload && payload.lastSeenAt ? String(payload.lastSeenAt) : null;
+  const lastSeenMs = lastSeenAt ? Date.parse(lastSeenAt) : NaN;
+  const serverOnline = Number.isFinite(lastSeenMs) && (Date.now() - lastSeenMs) <= ADMIN_ONLINE_TTL_MS;
+  return {
+    serverOnline,
+    lastSeenAt
+  };
 }
 
 function parsePlayerLog(log) {
@@ -207,7 +247,8 @@ function buildPublicState() {
     updatedAt: new Date().toISOString(),
     world,
     players,
-    logs: playerLogs
+    logs: playerLogs,
+    server: readAdminState()
   };
 }
 
@@ -271,7 +312,7 @@ setInterval(() => {
   }
 }, POLL_INTERVAL_MS);
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (req.method === "OPTIONS") {
@@ -297,6 +338,48 @@ const server = http.createServer((req, res) => {
   if (req.method === "GET" && url.pathname === "/api/public/stream") {
     handleSse(req, res);
     return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/admin/sync") {
+    if (!ADMIN_SYNC_TOKEN) {
+      sendJson(res, 503, { error: "ADMIN_SYNC_TOKEN is not configured" });
+      return;
+    }
+
+    const providedToken = String(req.headers["x-admin-sync-token"] || "");
+    if (!providedToken || providedToken !== ADMIN_SYNC_TOKEN) {
+      sendJson(res, 401, { error: "Unauthorized" });
+      return;
+    }
+
+    try {
+      const body = await readBody(req);
+      if (!body || typeof body !== "object") {
+        sendJson(res, 400, { error: "JSON body is required" });
+        return;
+      }
+
+      if (body.world && typeof body.world === "object") {
+        writeJson(WORLD_FILE, body.world);
+      }
+      if (Array.isArray(body.players)) {
+        writeJson(PLAYERS_FILE, { players: body.players });
+      }
+      if (Array.isArray(body.logs)) {
+        writeJson(LOGS_FILE, { logs: body.logs });
+      }
+      const syncTime = body && body.admin && body.admin.lastSeenAt
+        ? String(body.admin.lastSeenAt)
+        : new Date().toISOString();
+      writeJson(ADMIN_STATE_FILE, { lastSeenAt: syncTime });
+
+      cache.signature = "";
+      sendJson(res, 200, { ok: true });
+      return;
+    } catch (error) {
+      sendJson(res, 400, { error: error instanceof Error ? error.message : "Sync failed" });
+      return;
+    }
   }
 
   sendJson(res, 404, {

@@ -37,7 +37,7 @@ loadDotEnv(path.join(process.cwd(), ".env"));
 
 const PORT = Number(process.env.PORT || 4200);
 const HOST = String(process.env.HOST || "0.0.0.0");
-const BACKEND_URL = String(process.env.BACKEND_URL || "http://localhost:4100").replace(/\/+$/, "");
+const BACKEND_URL = String(process.env.BACKEND_URL || "https://meshcitybackend-production.up.railway.app").replace(/\/+$/, "");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 const CONTENT_TYPES = {

@@ -528,7 +528,27 @@ function writeJson(filePath, value) {
   fs.writeFileSync(filePath, JSON.stringify(value, null, 2), "utf8");
 }
 
-function createStore() {
+function createStore(options = {}) {
+  const onPublicStateChanged = typeof options.onPublicStateChanged === "function"
+    ? options.onPublicStateChanged
+    : null;
+
+  function emitPublicStateChanged() {
+    if (!onPublicStateChanged) {
+      return;
+    }
+
+    try {
+      onPublicStateChanged({
+        world: readJson(WORLD_FILE, defaultWorld()),
+        players: readJson(PLAYERS_FILE, { players: [] }).players,
+        logs: readJson(LOGS_FILE, { logs: [] }).logs
+      });
+    } catch (error) {
+      // Ignore sync hook failures to keep local admin state functional.
+    }
+  }
+
   ensureFile(PLAYERS_FILE, { players: [] });
   ensureFile(LOGS_FILE, { logs: [] });
   ensureFile(DEVICE_FILE, {
@@ -550,12 +570,14 @@ function createStore() {
 
     savePlayers(players) {
       writeJson(PLAYERS_FILE, { players });
+      emitPublicStateChanged();
     },
 
     deletePlayer(nodeId) {
       const payload = readJson(PLAYERS_FILE, { players: [] });
       const nextPlayers = payload.players.filter((player) => player.nodeId !== nodeId);
       writeJson(PLAYERS_FILE, { players: nextPlayers });
+      emitPublicStateChanged();
       return nextPlayers.length !== payload.players.length;
     },
 
@@ -574,10 +596,12 @@ function createStore() {
       });
       payload.logs = payload.logs.slice(-300);
       writeJson(LOGS_FILE, payload);
+      emitPublicStateChanged();
     },
 
     clearLogs() {
       writeJson(LOGS_FILE, { logs: [] });
+      emitPublicStateChanged();
     },
 
     getDeviceState() {
@@ -610,6 +634,7 @@ function createStore() {
       const normalized = normalizeWorldShape(nextWorld);
       normalized.updatedAt = new Date().toISOString();
       writeJson(WORLD_FILE, normalized);
+      emitPublicStateChanged();
       return normalized;
     },
 

@@ -1,388 +1,532 @@
 {
   "logs": [
     {
-      "id": "log_1772891052797_8768f7",
-      "timestamp": "2026-03-07T13:44:12.797Z",
+      "id": "log_1772899867460_b6d18c",
+      "timestamp": "2026-03-07T16:11:07.460Z",
       "scope": "admin",
       "message": "Logs cleared"
     },
     {
-      "id": "log_1772891149949_6ebf0f",
-      "timestamp": "2026-03-07T13:45:49.949Z",
-      "scope": "rx",
-      "message": "Direct message from !7d08653c: hi"
-    },
-    {
-      "id": "log_1772891150078_2df438",
-      "timestamp": "2026-03-07T13:45:50.078Z",
-      "scope": "tx",
-      "message": "DM queued to !7d08653c: Welcome to MESHCITY. Register now? Reply Y or N. Map + instructions: https://meshcity.fun"
-    },
-    {
-      "id": "log_1772891151130_dc9bc1",
-      "timestamp": "2026-03-07T13:45:51.130Z",
-      "scope": "bridge",
-      "message": "Sent text to !7d08653c"
-    },
-    {
-      "id": "log_1772891156517_5314af",
-      "timestamp": "2026-03-07T13:45:56.517Z",
+      "id": "log_1772899876015_250ede",
+      "timestamp": "2026-03-07T16:11:16.015Z",
       "scope": "rx",
       "message": "Direct message from !7d08653c: y"
     },
     {
-      "id": "log_1772891156584_1d1651",
-      "timestamp": "2026-03-07T13:45:56.584Z",
+      "id": "log_1772899876094_6194a3",
+      "timestamp": "2026-03-07T16:11:16.094Z",
       "scope": "tx",
       "message": "DM queued to !7d08653c: Send player name (3-20 chars)."
     },
     {
-      "id": "log_1772891157636_7dfb1c",
-      "timestamp": "2026-03-07T13:45:57.636Z",
+      "id": "log_1772899877146_7eefb8",
+      "timestamp": "2026-03-07T16:11:17.146Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891165035_ecf969",
-      "timestamp": "2026-03-07T13:46:05.035Z",
+      "id": "log_1772899887010_719b70",
+      "timestamp": "2026-03-07T16:11:27.010Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: ararato"
+      "message": "Direct message from !7d08653c: w30d"
     },
     {
-      "id": "log_1772891165106_c485f0",
-      "timestamp": "2026-03-07T13:46:05.106Z",
+      "id": "log_1772899887102_b4e461",
+      "timestamp": "2026-03-07T16:11:27.102Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Registration complete, ararato. You receive 1200 CR. Send START, move on the map, CLAIM your first tile, then NAME your district."
+      "message": "DM queued to !7d08653c: Registration complete, w30d. You receive 1200 CR. Send START, move on the map, CLAIM your first tile, then NAME your district."
     },
     {
-      "id": "log_1772891166158_da0085",
-      "timestamp": "2026-03-07T13:46:06.158Z",
+      "id": "log_1772899888154_09dcbb",
+      "timestamp": "2026-03-07T16:11:28.154Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891181939_bf5f21",
-      "timestamp": "2026-03-07T13:46:21.939Z",
+      "id": "log_1772899896445_5a68a9",
+      "timestamp": "2026-03-07T16:11:36.445Z",
       "scope": "rx",
       "message": "Direct message from !7d08653c: start"
     },
     {
-      "id": "log_1772891182012_18a068",
-      "timestamp": "2026-03-07T13:46:22.012Z",
+      "id": "log_1772899896527_e1012d",
+      "timestamp": "2026-03-07T16:11:36.527Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Player ready, ararato. No land claimed yet. Use CLAIM <x> <y> on a free tile (140 CR for first claim). Use HELP. Map + instructions: https://meshcity.fun"
+      "message": "DM queued to !7d08653c: Player ready, w30d. No land claimed yet. Use CLAIM <x> <y> on a free tile (140 CR for first claim). Use HELP. Map + instructions: https://meshcity.fun"
     },
     {
-      "id": "log_1772891183063_e71122",
-      "timestamp": "2026-03-07T13:46:23.063Z",
+      "id": "log_1772899897579_b2250e",
+      "timestamp": "2026-03-07T16:11:37.579Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891209729_7bfdb1",
-      "timestamp": "2026-03-07T13:46:49.729Z",
+      "id": "log_1772899993042_1cbc58",
+      "timestamp": "2026-03-07T16:13:13.042Z",
+      "scope": "admin",
+      "message": "Player deleted: !7d08653c"
+    },
+    {
+      "id": "log_1772900589195_1c26c8",
+      "timestamp": "2026-03-07T16:23:09.195Z",
+      "scope": "device",
+      "message": "Recovered from stale startup state: set to disconnected"
+    },
+    {
+      "id": "log_1772900589216_ef44cb",
+      "timestamp": "2026-03-07T16:23:09.216Z",
+      "scope": "system",
+      "message": "MESHCITY dashboard started on http://localhost:3000"
+    },
+    {
+      "id": "log_1772900591865_2e9f23",
+      "timestamp": "2026-03-07T16:23:11.865Z",
+      "scope": "device",
+      "message": "Opening serial connection COM5"
+    },
+    {
+      "id": "log_1772900594662_135693",
+      "timestamp": "2026-03-07T16:23:14.662Z",
+      "scope": "device",
+      "message": "Serial connection established on COM5"
+    },
+    {
+      "id": "log_1772900996189_cea681",
+      "timestamp": "2026-03-07T16:29:56.189Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: claim"
+      "message": "Direct message from !7d08653c: hi"
     },
     {
-      "id": "log_1772891209788_6ff8af",
-      "timestamp": "2026-03-07T13:46:49.788Z",
+      "id": "log_1772900996384_292958",
+      "timestamp": "2026-03-07T16:29:56.384Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Usage: CLAIM <x> <y>"
+      "message": "DM queued to !7d08653c: Welcome to MESHCITY. Register now? Reply Y or N. Map + instructions: https://meshcity.fun"
     },
     {
-      "id": "log_1772891210840_233eca",
-      "timestamp": "2026-03-07T13:46:50.840Z",
+      "id": "log_1772900997435_8f78a2",
+      "timestamp": "2026-03-07T16:29:57.435Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891235059_22fdce",
-      "timestamp": "2026-03-07T13:47:15.059Z",
+      "id": "log_1772901004786_11c70f",
+      "timestamp": "2026-03-07T16:30:04.786Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: n"
+    },
+    {
+      "id": "log_1772901004903_751e6f",
+      "timestamp": "2026-03-07T16:30:04.903Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Registration canceled. Send Y later."
+    },
+    {
+      "id": "log_1772901005955_0b2c46",
+      "timestamp": "2026-03-07T16:30:05.955Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901013572_c9f1c3",
+      "timestamp": "2026-03-07T16:30:13.572Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: y"
+    },
+    {
+      "id": "log_1772901013651_ab66e6",
+      "timestamp": "2026-03-07T16:30:13.651Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Send player name (3-20 chars)."
+    },
+    {
+      "id": "log_1772901014702_7483e8",
+      "timestamp": "2026-03-07T16:30:14.702Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901024062_abbee6",
+      "timestamp": "2026-03-07T16:30:24.062Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: w30d"
+    },
+    {
+      "id": "log_1772901024141_95119a",
+      "timestamp": "2026-03-07T16:30:24.142Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Registration complete, w30d. You receive 1200 CR. Send START, move on the map, CLAIM your first tile, then NAME your district."
+    },
+    {
+      "id": "log_1772901025193_ddf42f",
+      "timestamp": "2026-03-07T16:30:25.193Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901037014_4264a6",
+      "timestamp": "2026-03-07T16:30:37.014Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: start"
+    },
+    {
+      "id": "log_1772901037094_77c66b",
+      "timestamp": "2026-03-07T16:30:37.094Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Player ready, w30d. No land claimed yet. Use CLAIM <x> <y> on a free tile (140 CR for first claim). Use HELP. Map + instructions: https://meshcity.fun"
+    },
+    {
+      "id": "log_1772901038146_464a42",
+      "timestamp": "2026-03-07T16:30:38.146Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901109992_ebcbf9",
+      "timestamp": "2026-03-07T16:31:49.992Z",
       "scope": "rx",
       "message": "Direct message from !7d08653c: move n"
     },
     {
-      "id": "log_1772891235216_751fb8",
-      "timestamp": "2026-03-07T13:47:15.216Z",
+      "id": "log_1772901110051_1478a5",
+      "timestamp": "2026-03-07T16:31:50.051Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Moved to [68,2] (mountain)."
+      "message": "DM queued to !7d08653c: You cannot move into water."
     },
     {
-      "id": "log_1772891236267_c7e72d",
-      "timestamp": "2026-03-07T13:47:16.267Z",
+      "id": "log_1772901111103_1c4931",
+      "timestamp": "2026-03-07T16:31:51.103Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891246809_82f8c4",
-      "timestamp": "2026-03-07T13:47:26.809Z",
+      "id": "log_1772901153555_396246",
+      "timestamp": "2026-03-07T16:32:33.555Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: move s"
+      "message": "Direct message from !7d08653c: move e"
     },
     {
-      "id": "log_1772891246959_105150",
-      "timestamp": "2026-03-07T13:47:26.959Z",
+      "id": "log_1772901153733_01d3e6",
+      "timestamp": "2026-03-07T16:32:33.733Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Moved to [68,3] (mountain)."
+      "message": "DM queued to !7d08653c: Moved to [14,57] (plain)."
     },
     {
-      "id": "log_1772891248010_c93402",
-      "timestamp": "2026-03-07T13:47:28.011Z",
+      "id": "log_1772901154785_c54409",
+      "timestamp": "2026-03-07T16:32:34.785Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891259350_267c1d",
-      "timestamp": "2026-03-07T13:47:39.350Z",
+      "id": "log_1772901162311_d17148",
+      "timestamp": "2026-03-07T16:32:42.311Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: claim 68 3"
+      "message": "Direct message from !7d08653c: move n"
     },
     {
-      "id": "log_1772891259481_f1a6ee",
-      "timestamp": "2026-03-07T13:47:39.481Z",
+      "id": "log_1772901162475_87a42d",
+      "timestamp": "2026-03-07T16:32:42.475Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: First land claim secured at 68,3. HQ established. Cost 140 CR. Now name your district: NAME <district name>."
+      "message": "DM queued to !7d08653c: Moved to [14,56] (plain)."
     },
     {
-      "id": "log_1772891260532_b921a4",
-      "timestamp": "2026-03-07T13:47:40.532Z",
+      "id": "log_1772901163526_ce04f9",
+      "timestamp": "2026-03-07T16:32:43.526Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891277813_f218c3",
-      "timestamp": "2026-03-07T13:47:57.813Z",
+      "id": "log_1772901175452_d8e583",
+      "timestamp": "2026-03-07T16:32:55.452Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: claim 14 56"
+    },
+    {
+      "id": "log_1772901175610_6bed90",
+      "timestamp": "2026-03-07T16:32:55.610Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: First land claim secured at 14,56. HQ established. Cost 140 CR. Now name your district: NAME <district name>."
+    },
+    {
+      "id": "log_1772901176662_6a02fb",
+      "timestamp": "2026-03-07T16:32:56.662Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901188301_e29f8d",
+      "timestamp": "2026-03-07T16:33:08.301Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: fortess"
+    },
+    {
+      "id": "log_1772901188360_c71f94",
+      "timestamp": "2026-03-07T16:33:08.360Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Name your district first: NAME <district name>."
+    },
+    {
+      "id": "log_1772901189412_c3be93",
+      "timestamp": "2026-03-07T16:33:09.412Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901595875_bf8e25",
+      "timestamp": "2026-03-07T16:39:55.875Z",
       "scope": "rx",
       "message": "Direct message from !7d08653c: name fortess"
     },
     {
-      "id": "log_1772891277885_fe3489",
-      "timestamp": "2026-03-07T13:47:57.885Z",
+      "id": "log_1772901595952_cd8897",
+      "timestamp": "2026-03-07T16:39:55.952Z",
       "scope": "tx",
       "message": "DM queued to !7d08653c: District named: fortess."
     },
     {
-      "id": "log_1772891278936_1d3bf6",
-      "timestamp": "2026-03-07T13:47:58.936Z",
+      "id": "log_1772901597004_e253af",
+      "timestamp": "2026-03-07T16:39:57.004Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891375331_41d6b3",
-      "timestamp": "2026-03-07T13:49:35.331Z",
+      "id": "log_1772901609505_383c44",
+      "timestamp": "2026-03-07T16:40:09.505Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: build mine"
+      "message": "Direct message from !7d08653c: move s"
     },
     {
-      "id": "log_1772891375375_0f6b7a",
-      "timestamp": "2026-03-07T13:49:35.375Z",
+      "id": "log_1772901609692_888f8c",
+      "timestamp": "2026-03-07T16:40:09.692Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Usage: BUILD <home|farm|mill|mine|shop|hall> <x> <y>"
+      "message": "DM queued to !7d08653c: Moved to [14,57] (plain)."
     },
     {
-      "id": "log_1772891376426_5cd042",
-      "timestamp": "2026-03-07T13:49:36.426Z",
+      "id": "log_1772901610753_ab89bc",
+      "timestamp": "2026-03-07T16:40:10.753Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891407507_66b676",
-      "timestamp": "2026-03-07T13:50:07.507Z",
+      "id": "log_1772901622977_1fe93e",
+      "timestamp": "2026-03-07T16:40:22.977Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: build mine 68 1"
+      "message": "Direct message from !7d08653c: claim 14 57"
     },
     {
-      "id": "log_1772891407558_bdf0b5",
-      "timestamp": "2026-03-07T13:50:07.558Z",
+      "id": "log_1772901623141_aa6552",
+      "timestamp": "2026-03-07T16:40:23.141Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Build only on your claimed tile."
+      "message": "DM queued to !7d08653c: Claimed 14,57 for 100 CR. Expand only from adjacent tiles."
     },
     {
-      "id": "log_1772891408609_78bdb9",
-      "timestamp": "2026-03-07T13:50:08.609Z",
+      "id": "log_1772901624192_6bd5a3",
+      "timestamp": "2026-03-07T16:40:24.192Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891425693_c3ac2e",
-      "timestamp": "2026-03-07T13:50:25.693Z",
+      "id": "log_1772901633295_b32e2a",
+      "timestamp": "2026-03-07T16:40:33.295Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: build mine 68 3"
+      "message": "Direct message from !7d08653c: move e"
     },
     {
-      "id": "log_1772891425769_cc3ea4",
-      "timestamp": "2026-03-07T13:50:25.769Z",
+      "id": "log_1772901633461_bd778c",
+      "timestamp": "2026-03-07T16:40:33.461Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Mine unlocks at district level 3."
+      "message": "DM queued to !7d08653c: Moved to [15,57] (plain)."
     },
     {
-      "id": "log_1772891426820_87c031",
-      "timestamp": "2026-03-07T13:50:26.820Z",
+      "id": "log_1772901634512_d36dc9",
+      "timestamp": "2026-03-07T16:40:34.512Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891565190_4a202c",
-      "timestamp": "2026-03-07T13:52:45.190Z",
+      "id": "log_1772901644253_698898",
+      "timestamp": "2026-03-07T16:40:44.253Z",
       "scope": "rx",
-      "message": "Direct message from !7d08653c: build mine 68 3"
+      "message": "Direct message from !7d08653c: claim 15 57"
     },
     {
-      "id": "log_1772891565248_d5f462",
-      "timestamp": "2026-03-07T13:52:45.248Z",
+      "id": "log_1772901644397_89d1aa",
+      "timestamp": "2026-03-07T16:40:44.397Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Mine unlocks at district level 3."
+      "message": "DM queued to !7d08653c: Claimed 15,57 for 110 CR. Expand only from adjacent tiles."
     },
     {
-      "id": "log_1772891566299_268bf3",
-      "timestamp": "2026-03-07T13:52:46.299Z",
+      "id": "log_1772901645448_f8f0e2",
+      "timestamp": "2026-03-07T16:40:45.448Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772891581097_f8beac",
-      "timestamp": "2026-03-07T13:53:01.097Z",
-      "scope": "device",
-      "message": "Recovered from stale startup state: set to disconnected"
-    },
-    {
-      "id": "log_1772891581113_13a60e",
-      "timestamp": "2026-03-07T13:53:01.113Z",
-      "scope": "system",
-      "message": "MESHCITY dashboard started on http://localhost:3000"
-    },
-    {
-      "id": "log_1772891612205_a1fdca",
-      "timestamp": "2026-03-07T13:53:32.205Z",
-      "scope": "device",
-      "message": "Opening serial connection COM5"
-    },
-    {
-      "id": "log_1772891614890_ad68b4",
-      "timestamp": "2026-03-07T13:53:34.890Z",
-      "scope": "device",
-      "message": "Serial connection established on COM5"
-    },
-    {
-      "id": "log_1772891616568_107c28",
-      "timestamp": "2026-03-07T13:53:36.568Z",
-      "scope": "rx",
-      "message": "Direct message from !7d08653c: build mine 68 3"
-    },
-    {
-      "id": "log_1772891616671_d64cdc",
-      "timestamp": "2026-03-07T13:53:36.671Z",
-      "scope": "tx",
-      "message": "DM queued to !7d08653c: Mine built at 68,3. Slots 1/3."
-    },
-    {
-      "id": "log_1772891617722_eb3ef2",
-      "timestamp": "2026-03-07T13:53:37.722Z",
-      "scope": "bridge",
-      "message": "Sent text to !7d08653c"
-    },
-    {
-      "id": "log_1772892164023_0c25f6",
-      "timestamp": "2026-03-07T14:02:44.023Z",
-      "scope": "device",
-      "message": "Recovered from stale startup state: set to disconnected"
-    },
-    {
-      "id": "log_1772892164039_b7a326",
-      "timestamp": "2026-03-07T14:02:44.039Z",
-      "scope": "system",
-      "message": "MESHCITY dashboard started on http://localhost:3000"
-    },
-    {
-      "id": "log_1772892284637_d4b99a",
-      "timestamp": "2026-03-07T14:04:44.637Z",
-      "scope": "admin",
-      "message": "World imported (82x66, entities=343)"
-    },
-    {
-      "id": "log_1772893423181_579ca8",
-      "timestamp": "2026-03-07T14:23:43.181Z",
-      "scope": "system",
-      "message": "MESHCITY dashboard started on http://localhost:3000"
-    },
-    {
-      "id": "log_1772893495673_a956dd",
-      "timestamp": "2026-03-07T14:24:55.673Z",
-      "scope": "system",
-      "message": "MESHCITY dashboard started on http://localhost:3000"
-    },
-    {
-      "id": "log_1772894414687_bc5e9f",
-      "timestamp": "2026-03-07T14:40:14.687Z",
-      "scope": "device",
-      "message": "Opening serial connection COM5"
-    },
-    {
-      "id": "log_1772894417523_0d158c",
-      "timestamp": "2026-03-07T14:40:17.523Z",
-      "scope": "device",
-      "message": "Serial connection established on COM5"
-    },
-    {
-      "id": "log_1772894426692_156221",
-      "timestamp": "2026-03-07T14:40:26.692Z",
+      "id": "log_1772901699530_6fa714",
+      "timestamp": "2026-03-07T16:41:39.530Z",
       "scope": "rx",
       "message": "Direct message from !7d08653c: move n"
     },
     {
-      "id": "log_1772894426900_557c1a",
-      "timestamp": "2026-03-07T14:40:26.900Z",
+      "id": "log_1772901699696_ce9d74",
+      "timestamp": "2026-03-07T16:41:39.696Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Moved to [33,59] (town)."
+      "message": "DM queued to !7d08653c: Moved to [15,56] (plain)."
     },
     {
-      "id": "log_1772894427951_a88dfb",
-      "timestamp": "2026-03-07T14:40:27.951Z",
+      "id": "log_1772901700747_1b757b",
+      "timestamp": "2026-03-07T16:41:40.748Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772894438493_556e1d",
-      "timestamp": "2026-03-07T14:40:38.493Z",
+      "id": "log_1772901712512_696905",
+      "timestamp": "2026-03-07T16:41:52.512Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: claim 15 56"
+    },
+    {
+      "id": "log_1772901712659_19e28a",
+      "timestamp": "2026-03-07T16:41:52.659Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Claimed 15,56 for 120 CR. Expand only from adjacent tiles."
+    },
+    {
+      "id": "log_1772901713712_41a4b0",
+      "timestamp": "2026-03-07T16:41:53.712Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901726842_e5b16b",
+      "timestamp": "2026-03-07T16:42:06.842Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: move w"
+    },
+    {
+      "id": "log_1772901727005_fcb694",
+      "timestamp": "2026-03-07T16:42:07.005Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Moved to [14,56] (plain)."
+    },
+    {
+      "id": "log_1772901728058_158e9c",
+      "timestamp": "2026-03-07T16:42:08.058Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901767912_6b1e91",
+      "timestamp": "2026-03-07T16:42:47.912Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: build mill 14 56"
+    },
+    {
+      "id": "log_1772901768022_9431b1",
+      "timestamp": "2026-03-07T16:42:48.022Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Mill built at 14,56. Slots 1/3."
+    },
+    {
+      "id": "log_1772901769074_71cedf",
+      "timestamp": "2026-03-07T16:42:49.074Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772901854681_9c7f0e",
+      "timestamp": "2026-03-07T16:44:14.681Z",
       "scope": "rx",
       "message": "Direct message from !7d08653c: move n"
     },
     {
-      "id": "log_1772894438677_e3b020",
-      "timestamp": "2026-03-07T14:40:38.677Z",
+      "id": "log_1772901854852_f8e210",
+      "timestamp": "2026-03-07T16:44:14.852Z",
       "scope": "tx",
-      "message": "DM queued to !7d08653c: Moved to [33,58] (town)."
+      "message": "DM queued to !7d08653c: Moved to [14,55] (plain)."
     },
     {
-      "id": "log_1772894439728_a8be16",
-      "timestamp": "2026-03-07T14:40:39.728Z",
+      "id": "log_1772901855903_b3dea8",
+      "timestamp": "2026-03-07T16:44:15.903Z",
       "scope": "bridge",
       "message": "Sent text to !7d08653c"
     },
     {
-      "id": "log_1772897987564_02d5cb",
-      "timestamp": "2026-03-07T15:39:47.564Z",
+      "id": "log_1772901866865_4633c1",
+      "timestamp": "2026-03-07T16:44:26.865Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: claim 14 55"
+    },
+    {
+      "id": "log_1772901867016_d2f820",
+      "timestamp": "2026-03-07T16:44:27.016Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Claimed 14,55 for 130 CR. Expand only from adjacent tiles."
+    },
+    {
+      "id": "log_1772901868068_9b23b8",
+      "timestamp": "2026-03-07T16:44:28.068Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772957941697_178eef",
+      "timestamp": "2026-03-08T08:19:01.697Z",
       "scope": "device",
       "message": "Recovered from stale startup state: set to disconnected"
     },
     {
-      "id": "log_1772897987579_0b5538",
-      "timestamp": "2026-03-07T15:39:47.579Z",
+      "id": "log_1772957941757_2860ff",
+      "timestamp": "2026-03-08T08:19:01.758Z",
       "scope": "system",
       "message": "MESHCITY dashboard started on http://localhost:3000"
     },
     {
-      "id": "log_1772897990897_60073a",
-      "timestamp": "2026-03-07T15:39:50.897Z",
+      "id": "log_1772958241407_4ce008",
+      "timestamp": "2026-03-08T08:24:01.407Z",
       "scope": "device",
       "message": "Opening serial connection COM5"
     },
     {
-      "id": "log_1772897994407_2744ee",
-      "timestamp": "2026-03-07T15:39:54.407Z",
+      "id": "log_1772958244380_3084e6",
+      "timestamp": "2026-03-08T08:24:04.380Z",
       "scope": "device",
       "message": "Serial connection established on COM5"
+    },
+    {
+      "id": "log_1772958254968_187234",
+      "timestamp": "2026-03-08T08:24:14.968Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: hi"
+    },
+    {
+      "id": "log_1772958255022_1ae040",
+      "timestamp": "2026-03-08T08:24:15.022Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Unknown command. Send HELP."
+    },
+    {
+      "id": "log_1772958256074_e5d6e7",
+      "timestamp": "2026-03-08T08:24:16.074Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
+    },
+    {
+      "id": "log_1772958273261_ba0c12",
+      "timestamp": "2026-03-08T08:24:33.261Z",
+      "scope": "rx",
+      "message": "Direct message from !7d08653c: move e"
+    },
+    {
+      "id": "log_1772958273440_814ba1",
+      "timestamp": "2026-03-08T08:24:33.440Z",
+      "scope": "tx",
+      "message": "DM queued to !7d08653c: Moved to [15,55] (plain)."
+    },
+    {
+      "id": "log_1772958274492_3cdac6",
+      "timestamp": "2026-03-08T08:24:34.492Z",
+      "scope": "bridge",
+      "message": "Sent text to !7d08653c"
     }
   ]
 }

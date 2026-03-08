@@ -13,7 +13,11 @@ const BACKEND_URL = String(config.BACKEND_URL || "").replace(/\/+$/, "");
 const state = {
   world: null,
   players: [],
-  logs: []
+  logs: [],
+  server: {
+    serverOnline: false,
+    lastSeenAt: null
+  }
 };
 
 const view = {
@@ -21,6 +25,7 @@ const view = {
   zoom: 1,
   minZoom: 0.5,
   maxZoom: 3.2,
+  hasInitialCenter: false,
   pinchStartDistance: 0,
   pinchStartZoom: 1,
   drag: {
@@ -40,6 +45,14 @@ function setStatus(text, online) {
   const el = document.getElementById("status");
   el.textContent = text;
   el.classList.toggle("online", Boolean(online));
+}
+
+function updateServerStatus(viaPoll) {
+  if (state.server.serverOnline) {
+    setStatus("SERVER ONLINE", true);
+    return;
+  }
+  setStatus("SERVER OFFLINE", false);
 }
 
 function formatTime(iso) {
@@ -103,24 +116,24 @@ function resourceEmoji(entity) {
   const type = String(entity && entity.type ? entity.type : "").toLowerCase();
   const resource = String(entity && entity.meta && entity.meta.resource ? entity.meta.resource : "").toLowerCase();
   const key = resource || type;
-  if (key === "wood") return "??";
-  if (key === "stone") return "??";
-  if (key === "iron") return "?";
-  if (key === "copper") return "??";
-  if (key === "crystal") return "??";
-  if (key === "food") return "??";
-  return "??";
+  if (key === "wood") return "\u{1FAB5}";
+  if (key === "stone") return "\u{1FAA8}";
+  if (key === "iron") return "\u{26CF}";
+  if (key === "copper") return "\u{1FA99}";
+  if (key === "crystal") return "\u{1F48E}";
+  if (key === "food") return "\u{1F33E}";
+  return "\u{2753}";
 }
 
 function buildingEmoji(type) {
   const key = String(type || "").toLowerCase();
-  if (key === "mine") return "?";
-  if (key === "mill") return "??";
-  if (key === "farm") return "??";
-  if (key === "shop") return "??";
-  if (key === "home") return "??";
-  if (key === "hall") return "??";
-  return "??";
+  if (key === "mine") return "\u{26CF}";
+  if (key === "mill") return "\u{1FAB5}";
+  if (key === "farm") return "\u{1F33E}";
+  if (key === "shop") return "\u{1F3EA}";
+  if (key === "home") return "\u{1F3E0}";
+  if (key === "hall") return "\u{1F3DB}";
+  return "\u{1F3D8}";
 }
 
 function getBuildingByCell() {
@@ -267,7 +280,7 @@ function drawWorld() {
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    const avatar = player.avatar ? String(player.avatar) : "??";
+    const avatar = player.avatar ? String(player.avatar) : "\u{1F9D1}";
     ctx.font = `${Math.max(10, Math.round(tile * 0.75))}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -276,6 +289,15 @@ function drawWorld() {
   }
 
   document.getElementById("map-title").textContent = world.name || "MAP";
+}
+
+function centerMapOnCoord(x, y) {
+  const wrap = document.getElementById("map-wrap");
+  const tile = currentTileSize();
+  const targetX = Math.max(0, x * tile + tile / 2 - wrap.clientWidth / 2);
+  const targetY = Math.max(0, y * tile + tile / 2 - wrap.clientHeight / 2);
+  wrap.scrollLeft = targetX;
+  wrap.scrollTop = targetY;
 }
 
 function openPlayerModal(player) {
@@ -299,7 +321,7 @@ function openPlayerModal(player) {
 
   body.innerHTML = `
     <div class="player-card">
-      <div class="line"><span class="label">Player</span><strong>${escapeHtml(player.avatar || "??")} ${escapeHtml(player.shortName || "Unknown")}</strong></div>
+      <div class="line"><span class="label">Player</span><strong>${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</strong></div>
       <div class="line"><span class="label">Node ID</span><span>${escapeHtml(player.nodeId || "-")}</span></div>
       <div class="line"><span class="label">Position</span><span>${escapeHtml(pos)}</span></div>
       <div class="line"><span class="label">Credits</span><span>${escapeHtml(stats.credits || 0)}</span></div>
@@ -340,7 +362,7 @@ function renderPlayers() {
       const pos = player.position ? `${player.position.x},${player.position.y}` : "-";
       return `
         <tr class="player-row" data-node-id="${escapeHtml(player.nodeId || "")}">
-          <td class="player-name-cell">${escapeHtml(player.avatar || "??")} ${escapeHtml(player.shortName || "Unknown")}</td>
+          <td class="player-name-cell">${escapeHtml(player.avatar || "\u{1F9D1}")} ${escapeHtml(player.shortName || "Unknown")}</td>
           <td>${escapeHtml(player.nodeId || "-")}</td>
           <td>${escapeHtml(pos)}</td>
           <td>${escapeHtml(player.stats.credits || 0)}</td>
@@ -382,14 +404,36 @@ function renderLogs() {
     .join("");
 }
 
-function applyPayload(payload) {
+function applyPayload(payload, options = {}) {
   state.world = payload && payload.world ? payload.world : null;
   state.players = Array.isArray(payload && payload.players) ? payload.players : [];
   state.logs = Array.isArray(payload && payload.logs) ? payload.logs : [];
+  state.server = payload && payload.server && typeof payload.server === "object"
+    ? {
+      serverOnline: Boolean(payload.server.serverOnline),
+      lastSeenAt: payload.server.lastSeenAt || null
+    }
+    : {
+      serverOnline: false,
+      lastSeenAt: null
+    };
 
   drawWorld();
+  if (!view.hasInitialCenter) {
+    const firstPlayerWithPosition = state.players.find((player) =>
+      player &&
+      player.position &&
+      Number.isInteger(Number(player.position.x)) &&
+      Number.isInteger(Number(player.position.y))
+    );
+    if (firstPlayerWithPosition) {
+      centerMapOnCoord(Number(firstPlayerWithPosition.position.x), Number(firstPlayerWithPosition.position.y));
+      view.hasInitialCenter = true;
+    }
+  }
   renderPlayers();
   renderLogs();
+  updateServerStatus(Boolean(options.viaPoll));
 }
 
 function stopPolling() {
@@ -404,10 +448,9 @@ function startPolling() {
   pollTimer = setInterval(async () => {
     try {
       const payload = await fetchState();
-      applyPayload(payload);
-      setStatus("ONLINE (poll)", true);
+      applyPayload(payload, { viaPoll: true });
     } catch (error) {
-      setStatus("OFFLINE", false);
+      setStatus("SERVER OFFLINE", false);
     }
   }, 5000);
 }
@@ -422,15 +465,14 @@ function startSse() {
   eventSource.addEventListener("state", (event) => {
     try {
       const payload = JSON.parse(event.data);
-      applyPayload(payload);
-      setStatus("ONLINE", true);
+      applyPayload(payload, { viaPoll: false });
     } catch (error) {
-      setStatus("ONLINE (parse error)", false);
+      setStatus("SERVER OFFLINE", false);
     }
   });
 
   eventSource.onerror = () => {
-    setStatus("RECONNECTING...", false);
+    setStatus("SERVER OFFLINE", false);
     eventSource.close();
     startPolling();
     setTimeout(() => {
@@ -619,10 +661,9 @@ async function main() {
 
   try {
     const payload = await fetchState();
-    applyPayload(payload);
-    setStatus("ONLINE", true);
+    applyPayload(payload, { viaPoll: false });
   } catch (error) {
-    setStatus("OFFLINE", false);
+    setStatus("SERVER OFFLINE", false);
   }
 
   startSse();

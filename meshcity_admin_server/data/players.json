@@ -2,24 +2,24 @@
   "players": [
     {
       "nodeId": "!7d08653c",
-      "shortName": "ararato",
+      "shortName": "w30d",
       "registered": true,
       "registrationState": "registered",
-      "createdAt": "2026-03-07T13:45:49.961Z",
-      "updatedAt": "2026-03-07T14:40:38.625Z",
+      "createdAt": "2026-03-07T16:29:56.207Z",
+      "updatedAt": "2026-03-08T08:24:33.378Z",
       "stats": {
         "level": 1,
         "hp": 10,
         "xp": 0,
-        "credits": 930
+        "credits": 490
       },
       "gameState": {
         "hasStarted": true,
         "sessionActive": true,
-        "location": "Sector 33:58",
+        "location": "Sector 15:55",
         "position": {
-          "x": 33,
-          "y": 58
+          "x": 15,
+          "y": 55
         },
         "resources": {
           "wood": 8,
@@ -30,22 +30,26 @@
           "food": 4
         },
         "claimedCells": [
-          "68,3"
+          "14,56",
+          "14,57",
+          "15,57",
+          "15,56",
+          "14,55"
         ],
         "buildings": {
-          "68,3": [
-            "mine"
+          "14,56": [
+            "mill"
           ]
         },
-        "cityLevel": 1,
-        "cityCore": "68,3",
+        "cityLevel": 2,
+        "cityCore": "14,56",
         "cityName": "fortess",
         "districtName": "fortess",
         "chatBubble": "",
         "awaitingHelpCategory": false,
         "awaitingDistrictName": false,
-        "lastActionAt": "2026-03-07T14:40:38.625Z",
-        "startedAt": "2026-03-07T13:46:21.971Z",
+        "lastActionAt": "2026-03-08T08:24:33.378Z",
+        "startedAt": "2026-03-07T16:30:37.050Z",
         "migratedToMeshcity": true
       },
       "avatar": "🧑‍🦳"

@@ -1,3 +1,3 @@
 window.MESHCITY_CONFIG = {
-  BACKEND_URL: "https://YOUR-BACKEND-URL.up.railway.app"
+  BACKEND_URL: "https://meshcitybackend-production.up.railway.app"
 };
